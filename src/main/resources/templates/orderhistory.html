@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>OrderHistory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #dddddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>orders</h1>
+<!-- Skapa en table, thead, tr, th för att ge row ett namn -->
+<table>
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Customer ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Total Cost</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- iterera genom som for each loop  -->
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.getIdorderdetails()}">Order id</td>
+        <td th:text="${order.getCustomerid()}">Customer id</td>
+        <td th:text="${order.getProductid()}">Product id</td>
+        <td th:text="${order.getQuantity()}">quantity</td>
+        <td th:text="${order.getTotalcost()}">Total cost</td>
+        <td th:text="${order.getTime()}">Time</td>
+    </tr>
+    </tbody>
+</table>
+<br> <a href="electronics.html">tillbaka till hemsidan </a>
+
+</body>
+</html>
