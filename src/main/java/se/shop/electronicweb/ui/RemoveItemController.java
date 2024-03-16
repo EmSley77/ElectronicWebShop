@@ -16,8 +16,8 @@ public class RemoveItemController {
     AddOrderService addOrderService;
 
     @PostMapping("/removeitem")
-    public String removeItemInBasket(@RequestParam(name = "input") int input, Model model) {
-        model.addAttribute("removeitem", addOrderService.removeItemFromBasket(input));
+    public String removeItemInBasket(@RequestParam(name = "input") int input,@RequestParam(name = "amount") int amount, Model model) {
+        model.addAttribute("removeitem", addOrderService.removeItemFromBasket(input, amount));
         model.addAttribute("basketItems", addOrderService.getBasketItemsOrderDetails());
         return "order_form";
     }

@@ -87,9 +87,9 @@ public class AddOrderService {
         return basketItemsOrderDetails;
     }
 
-    public List<Orderdetails> removeItemFromBasket(int input) {
+    public List<Orderdetails> removeItemFromBasket(int input, int amount) {
         for (int i = 0; i< basketItemsOrderDetails.size(); i++) {
-            if (input == basketItemsOrderDetails.get(i).getProductid()) {
+            if (input == basketItemsOrderDetails.get(i).getProductid() && amount == basketItemsOrderDetails.get(i).getQuantity()) {
                 basketItemsOrderDetails.remove(i);
                 break;
             }

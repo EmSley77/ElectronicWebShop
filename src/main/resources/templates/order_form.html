@@ -117,11 +117,12 @@
 
 <form action="/removeitem" method="post">
     <input type="number" name="input" placeholder="Ange produkt-Id" required="required">
-    <button>Ta bort från varukorg</button>
+    <input type="number" name="amount" placeholder="Ange antal" required="required">
+    <button>Ta bort från din korg</button>
 </form>
 
 <form method="post" action="/addorder">
-    <input type="number" name="username" placeholder="Enter Customer_ID" required="required">
+    <input type="number" name="username" placeholder="Ange ditt ID" required="required">
     <button type="submit" name="order">Beställ</button>
 </form>
 </body>
