@@ -5,14 +5,9 @@ package se.shop.electronicweb.ui;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import se.shop.electronicweb.entity.Electronic;
 import se.shop.electronicweb.service.AddOrderService;
-import se.shop.electronicweb.service.ElectronicService;
-
-import java.util.List;
 
 @Controller
 public class AddOrderController {
@@ -25,7 +20,7 @@ public class AddOrderController {
                               @RequestParam(name = "amount") int amount,
                               Model model) {
         addOrderService.addToBasket(id, amount);
-        model.addAttribute("basketItems", addOrderService.getBasketItemsOrderDetails());
+        model.addAttribute("basketItems", addOrderService.getBasketItems());
         return "order_form";
     }
 

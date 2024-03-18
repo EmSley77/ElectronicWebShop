@@ -21,16 +21,14 @@ public class Orderline {
     @Basic
     @Column(name = "status", nullable = true, length = 45)
     private String status;
-    @Basic
-    @Column(name = "recieved", nullable = true, length = 45)
-    private String recieved;
+
 
     public Orderline(int orderdetailid, int productid, int quantityamount, String status, String recieved) {
         this.orderdetailid = orderdetailid;
         this.productid = productid;
         this.quantityamount = quantityamount;
         this.status = status;
-        this.recieved = recieved;
+
     }
 
     public Orderline() {
@@ -45,7 +43,6 @@ public class Orderline {
                 ", productid=" + productid +
                 ", quantityamount=" + quantityamount +
                 ", status='" + status + '\'' +
-                ", recieved='" + recieved + '\'' +
                 '}';
     }
 
@@ -89,14 +86,6 @@ public class Orderline {
         this.status = status;
     }
 
-    public String getRecieved() {
-        return recieved;
-    }
-
-    public void setRecieved(String recieved) {
-        this.recieved = recieved;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,8 +98,6 @@ public class Orderline {
         if (productid != orderline.productid) return false;
         if (quantityamount != orderline.quantityamount) return false;
         if (status != null ? !status.equals(orderline.status) : orderline.status != null) return false;
-        if (recieved != null ? !recieved.equals(orderline.recieved) : orderline.recieved != null) return false;
-
         return true;
     }
 
@@ -121,7 +108,6 @@ public class Orderline {
         result = 31 * result + productid;
         result = 31 * result + quantityamount;
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (recieved != null ? recieved.hashCode() : 0);
         return result;
     }
 }
