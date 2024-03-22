@@ -31,6 +31,19 @@ public class Customer {
     @Column(name = "role", nullable = false)
     private int role;
 
+    public Customer(String name, String lastname, String email, String address, String username, String password, int role) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Customer() {
+
+    }
     public int getIdcustomer() {
         return idcustomer;
     }

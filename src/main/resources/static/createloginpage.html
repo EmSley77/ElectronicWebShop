@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create login</title>
+</head>
+<body>
+<form method="post" action="createlogin">
+    <input name="name" type="text" required="required" placeholder="Name">
+    <br>
+    <br>
+    <input name="lastN" type="text" required="required" placeholder="Lastname">
+    <br>
+    <br>
+    <input name="email" type="text" required="required" placeholder="Email">
+    <br>
+    <br>
+    <input name="adress" type="text" required="required" placeholder="adress">
+    <br>
+    <br>
+    <input name="username" type="text" required="required" placeholder="Username">
+    <br>
+    <br>
+    <input name="password" type="text" required="required" placeholder="Password">
+    <br>
+    <br>
+    <button type="submit">Create login</button>
+</form>
+<a>:<span th:text="${createlogincred}"></span></a>
+</body>
+</html>
