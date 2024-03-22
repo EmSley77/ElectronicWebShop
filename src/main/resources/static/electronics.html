@@ -42,17 +42,24 @@
 </head>
 <body>
 <h1>IT-KOMPISEN</h1>
-<h3>Välkommen</h3> <br>
-<p>Sök</p>
+<h3>Welcome</h3> <br>
+<p>Search</p>
 <form action="/electronics" method="get">
     <input type="text" name="search" placeholder="Enter search">
     <button type="submit">Search</button>
 </form>
 
-<p>Se din orderhistorik</p>
-<form action="/orders" method="get"> <!-- Use a different endpoint for viewing orders -->
+<p>Orderhistory</p>
+<form action="/orders" method="get">
     <input type="text" name="username" placeholder="Enter username" required="required">
     <button type="submit">View Orders</button>
 </form>
+
+<p>Account Info</p>
+<form action="personal" method="get">
+    <input type="text" name="username" placeholder="Enter username" required="required">
+    <button type="submit">View AccountInfo</button>
+</form>
+
 </body>
 </html>
