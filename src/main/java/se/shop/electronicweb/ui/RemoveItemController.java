@@ -20,20 +20,20 @@ public class RemoveItemController {
     @GetMapping("/getbasket")
     public String getBasket(Model model) {
         model.addAttribute("basketItems", service.getBasketItems());
-     return "order_form";
+     return "order_formpage";
     }
 
     @PostMapping("/removeitem")
     public String removeItemInBasket(@RequestParam(name = "input") int input, Model model) {
         model.addAttribute("removeitem", service.removeItemFromBasket(input));
         model.addAttribute("basketItems", service.getBasketItems());
-        return "order_form";
+        return "order_formpage";
     }
 
     @PostMapping("/removeitemamount")
     public String removeItemAmountInBasket(@RequestParam(name = "input") int input,@RequestParam(name = "amount") int amount, Model model) {
         model.addAttribute("removeitem", service.removeAmountFromBasket(input,amount));
         model.addAttribute("basketItems", service.getBasketItems());
-        return "order_form";
+        return "order_formpage";
     }
 }

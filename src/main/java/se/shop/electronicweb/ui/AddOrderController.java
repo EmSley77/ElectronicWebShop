@@ -21,7 +21,7 @@ public class AddOrderController {
                               Model model) {
         addOrderService.addToBasket(id, amount);
         model.addAttribute("basketItems", addOrderService.getBasketItems());
-        return "order_form";
+        return "order_formpage";
     }
 
     @PostMapping("/addorder")

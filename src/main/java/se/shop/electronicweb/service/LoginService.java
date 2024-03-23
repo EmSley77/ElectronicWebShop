@@ -7,7 +7,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import se.shop.electronicweb.entity.Customer;
 import se.shop.electronicweb.repositorys.CustomerRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +39,14 @@ public class LoginService {
         if (customer.isEmpty() && !customer.isPresent()) {
             customerRepository.save(c);
             return "Login credentials created, welcome";
-        }else return "something went wrong";
+        } else return "something went wrong";
     }
 
+    public int getRole(String username) {
+        List<Customer> role = customerRepository.findCustomerByUsername(username);
+        for (Customer c: role) {
+            return c.getRole();
+        }
+        return -1;
+    }
 }

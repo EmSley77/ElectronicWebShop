@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import se.shop.electronicweb.entity.Customer;
 import se.shop.electronicweb.entity.Orderdetails;
 import se.shop.electronicweb.service.OrderService;
 import se.shop.electronicweb.service.PersonDetailService;
@@ -32,7 +31,7 @@ public class OrderController {
         List<Orderdetails> orderdetailsList;
         orderdetailsList = orderService.getOrders(username);
         model.addAttribute("orders", orderdetailsList);
-        return "orderhistory";
+        return "orderhistorypage";
     }
 
     @GetMapping("personal")

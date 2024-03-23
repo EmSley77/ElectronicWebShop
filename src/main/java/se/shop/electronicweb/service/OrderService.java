@@ -16,9 +16,6 @@ import java.util.List;
 public class OrderService {
 
     @Autowired
-    ElectronicRepository electronicRepository;
-
-    @Autowired
     CustomerRepository customerRepository;
 
     @Autowired

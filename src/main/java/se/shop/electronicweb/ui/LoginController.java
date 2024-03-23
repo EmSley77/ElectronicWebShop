@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import se.shop.electronicweb.service.LoginService;
 
 @Controller
@@ -16,19 +17,20 @@ public class LoginController {
     @Autowired
     LoginService service;
 
+
     @PostMapping("loginattempt")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
 
         String loginResult = service.login(username, password);
-        if (loginResult.equals("Login granted, welcome:")) {
+        if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 0) {
             model.addAttribute("login", loginResult);
             return "redirect:/electronics.html";
         }
-        else {
-            model.addAttribute("loginError", loginResult);
-            return "redirect:/loginpage.html";
-
+        else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {
+            model.addAttribute("login", loginResult);
+            return "redirect:/adminpage.html";
         }
+        else return "redirect:/loginpage.html";
     }
 
     @PostMapping("createlogin")

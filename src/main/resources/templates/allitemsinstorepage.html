@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Items in Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.getIdelectronic()}">ID</td>
+        <td th:text="${item.getName()}">Name</td>
+        <td th:text="${item.getCompany()}">Company</td>
+        <td th:text="${item.getCategori()}">Category</td>
+        <td th:text="${item.getColor()}">Color</td>
+        <td th:text="${item.getSize()}">Size</td>
+        <td th:text="${item.getPrice()}">Price</td>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>

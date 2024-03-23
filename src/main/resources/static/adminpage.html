@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin window</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        h5, h4 {
+            margin-top: 0;
+            text-decoration-skip-ink: auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<form method="post" action="createadmin">
+    <h5>Create admin</h5>
+    <input name="name" type="text" required="required" placeholder="Name">
+    <br>
+    <br>
+    <input name="lastN" type="text" required="required" placeholder="Lastname">
+    <br>
+    <br>
+    <input name="email" type="text" required="required" placeholder="Email">
+    <br>
+    <br>
+    <input name="adress" type="text" required="required" placeholder="adress">
+    <br>
+    <br>
+    <input name="username" type="text" required="required" placeholder="Username">
+    <br>
+    <br>
+    <input name="password" type="text" required="required" placeholder="Password">
+    <br>
+    <br>
+    <button type="submit">Create login</button>
+</form>
+<br>
+<form method="get" action="order">
+    <h4>Type in username to show orders</h4>
+
+    <input name="username" type="text" required="required" placeholder="Username">
+    <br>
+    <button type="submit">Click here to show order</button>
+</form>
+<br>
+<form action="additem" method="post">
+    <h4>Add new item to database</h4>
+    <input name="company" type="text" required="required" placeholder="Company">
+    <input name="categori" type="text" required="required" placeholder="Category">
+    <input name="name" type="text" required="required" placeholder="Name">
+    <input name="price" type="number" required="required" placeholder="Price">
+    <input name="color" type="text" required="required" placeholder="Color">
+    <input name="size" type="text" required="required" placeholder="Size">
+
+    <button type="submit">Add Item to database</button>
+</form>
+<br>
+<form action="remove" method="post">
+    <h4>Remove item from database</h4>
+    <input name="id" type="number" required="required" placeholder="ProductID">
+    <button type="submit">remove</button>
+</form>
+<br>
+<form method="get" action="all">
+    <h4>Show all electronics</h4>
+    <button type="submit">Show all electronics</button>
+</form>
+
+</body>
+</html>
