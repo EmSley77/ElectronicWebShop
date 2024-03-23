@@ -1,6 +1,7 @@
 package se.shop.electronicweb.service;
 
-import jakarta.persistence.Access;
+//Emanuel sleyman
+//2024-03-23
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
