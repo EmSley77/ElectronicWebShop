@@ -28,7 +28,7 @@ public class LoginController {
         }
         else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {
             model.addAttribute("login", loginResult);
-            return "redirect:/adminpage.html";
+            return "redirect:/adminpanelpage.html";
         }
         else return "redirect:/loginpage.html";
     }

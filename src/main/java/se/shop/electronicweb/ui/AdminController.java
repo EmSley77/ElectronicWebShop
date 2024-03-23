@@ -63,4 +63,22 @@ public class AdminController {
         return "allitemsinstorepage";
     }
 
+    @GetMapping("loginpage")
+    public String loginPage(Model model) {
+        model.addAttribute("loginpage", " ");
+        return "redirect:/loginpage.html";
+    }
+    @GetMapping("webpage")
+    public String webPage(Model model) {
+        model.addAttribute("loginpage", " ");
+        return "redirect:/electronics.html";
+    }
+
+
+    @GetMapping("adminpage")
+    public String adminPanel(Model model) {
+        model.addAttribute("loginpage", " ");
+        return "redirect:/adminpage.html";
+    }
+
 }
