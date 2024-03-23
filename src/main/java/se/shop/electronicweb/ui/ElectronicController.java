@@ -37,7 +37,7 @@ public class ElectronicController {
         }
         model.addAttribute("electronics", findElectronics);
 
-        return "searchresult";
+        return "searchresultpage";
     }
 
     @GetMapping("/search")
@@ -47,7 +47,7 @@ public class ElectronicController {
 
         model.addAttribute("electronics", electronics);
 
-        return "searchresult";
+        return "searchresultpage";
     }
 
 

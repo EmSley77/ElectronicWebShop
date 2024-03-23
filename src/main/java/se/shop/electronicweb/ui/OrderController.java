@@ -37,7 +37,7 @@ public class OrderController {
     @GetMapping("personal")
     public String showPersonalDetails(@RequestParam String username, Model model){
         model.addAttribute("credentials", service.showDetails(username));
-        return "personaldetail";
+        return "personaldetailpage";
     }
 
 }

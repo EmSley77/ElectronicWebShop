@@ -28,6 +28,6 @@ public class AddOrderController {
     public String doSetOrder(@RequestParam(name = "username")int username, Model model) {
         // Place the order
         model.addAttribute("addorder",addOrderService.orderItems(username));
-        return "thanks";
+        return "thankspage";
     }
 }
