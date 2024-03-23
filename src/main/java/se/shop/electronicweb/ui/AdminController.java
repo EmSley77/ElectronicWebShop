@@ -72,7 +72,7 @@ public class AdminController {
     @GetMapping("webpage")
     public String webPage(Model model) {
         model.addAttribute("loginpage", " ");
-        return "redirect:/electronics.html";
+        return "redirect:/electronicspage.html";
     }
 
 

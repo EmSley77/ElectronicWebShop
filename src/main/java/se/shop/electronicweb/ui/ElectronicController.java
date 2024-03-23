@@ -50,5 +50,10 @@ public class ElectronicController {
         return "searchresultpage";
     }
 
+    @GetMapping("homescreen")
+    public String homePage() {
+        return "redirect:/loginpage.html";
+    }
+
 
 }

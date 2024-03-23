@@ -24,7 +24,7 @@ public class LoginController {
         String loginResult = service.login(username, password);
         if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 0) {
             model.addAttribute("login", loginResult);
-            return "redirect:/electronics.html";
+            return "redirect:/electronicspage.html";
         }
         else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {
             model.addAttribute("login", loginResult);
