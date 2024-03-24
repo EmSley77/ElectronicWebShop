@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.shop.electronicweb.entity.Orderdetails;
+import se.shop.electronicweb.service.AdminService;
 import se.shop.electronicweb.service.OrderService;
 import se.shop.electronicweb.service.PersonDetailService;
 
@@ -20,7 +21,10 @@ public class OrderController {
     OrderService orderService;
 
     @Autowired
-    PersonDetailService service;
+    PersonDetailService personDetailService;
+
+    @Autowired
+    AdminService adminService;
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -36,8 +40,13 @@ public class OrderController {
 
     @GetMapping("personal")
     public String showPersonalDetails(@RequestParam String username, Model model){
-        model.addAttribute("credentials", service.showDetails(username));
+        model.addAttribute("credentials", personDetailService.showDetails(username));
         return "personaldetailpage";
     }
 
+    @GetMapping("allorders")
+    public String allOrders(Model model) {
+        model.addAttribute("allorder", adminService.getAllOrders());
+        return "orderspage";
+    }
 }

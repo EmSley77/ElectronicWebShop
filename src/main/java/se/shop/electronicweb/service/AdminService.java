@@ -99,5 +99,9 @@ public class AdminService {
     public List<Electronic> allElectronics() {
         return electronicRepository.findAll();
     }
+
+    public List<Orderdetails> getAllOrders() {
+        return orderRepository.findAll();
+    }
 }
 
