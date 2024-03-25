@@ -36,4 +36,11 @@ public class RemoveItemController {
         model.addAttribute("basketItems", service.getBasketItems());
         return "order_formpage";
     }
+
+    @PostMapping("addamount")
+    public String addAmount(@RequestParam(name = "input") int input,@RequestParam(name = "amount") int amount, Model model) {
+        model.addAttribute("additem", service.addAmountFromBasket(input,amount));
+        model.addAttribute("basketItems", service.getBasketItems());
+        return "order_formpage";
+    }
 }

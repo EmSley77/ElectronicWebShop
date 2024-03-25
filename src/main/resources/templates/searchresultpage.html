@@ -100,7 +100,6 @@
         <th>Category</th>
         <th>Price</th>
         <th>Color</th>
-        <th>Size</th>
         <th>Product ID</th>
     </tr>
     </thead>
@@ -114,16 +113,17 @@
         <td th:text="${electronic.getCategori()}" class="category">Category</td>
         <td th:text="${electronic.getPrice()}" class="price">Price</td>
         <td th:text="${electronic.getColor()}" class="color">Color</td>
-        <td th:text="${electronic.getSize()}" class="size">Size</td>
         <td th:text="${electronic.getIdelectronic()}" class="id">ID</td>
+        <td>
+            <form action="/basket" method="post">
+                <input name="id" type="hidden" th:value="${electronic.getIdelectronic()}">
+                <button type="submit">Add</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
-<form action="/basket" method="post">
-    <input type="number" name="id" placeholder="Enter ID" required="required">
-    <input type="number" name="amount" placeholder="Enter Amount" required="required">
-    <button type="submit">Add to Basket</button> <br>
-</form>
-<a href="http://localhost:8080/electronicspage.html"> <button>Tillbaka till sökruta </button> </a>
+
+<a href="http://localhost:8080/electronicspage.html"> <button>Back to Search </button> </a>
 </body>
 </html>

@@ -2,91 +2,72 @@
 <html lang="en">
 <style>
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+        background-color: #f0f5f9;
+        color: #333;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-
-    h1 {
-        text-align: center;
-        color: #333;
     }
 
     table {
-        width: 80%;
-        margin: 30px auto;
+        width: 100%;
         border-collapse: collapse;
-        border: 2px solid #ccc;
-        background-color: #fff;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
+        margin-top: 20px;
     }
 
     th, td {
-        padding: 12px;
+        padding: 10px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
+    th {
+        background-color: #3b5998;
+        color: #fff;
     }
 
-    th {
-        background-color: #ff6f61;
-        color: #fff;
+    tr:nth-child(even) {
+        background-color: #e8f0fe;
     }
 
     form {
-        margin-bottom: 20px;
-        text-align: right;
+        margin-top: 20px;
     }
 
     input[type="number"],
-    input[type="text"],
     button {
-        padding: 12px 20px;
+        padding: 10px;
         border: none;
-        border-radius: 25px;
-        margin: 5px;
-        font-size: 16px;
-        transition: all 0.3s ease;
+        border-radius: 5px;
+        margin-right: 10px;
     }
 
-    input[type="number"],
-    input[type="text"] {
-        width: 200px;
+    input[type="number"] {
+        width: 100px;
     }
 
     button {
-        background-color: #ff6f61;
-        color: #fff;
+        background-color: #181d56; /* Green button */
+        color: white;
         cursor: pointer;
     }
 
     button:hover {
-        background-color: #ff524f;
+        background-color: #2b3c73; /* Darker green on hover */
     }
 
     a {
         text-decoration: none;
-        color: #ff6f61;
-        font-weight: bold;
+        color: #203665; /* Green link */
     }
 
     a:hover {
-        text-decoration: underline;
+        color: #182f49; /* Darker green on hover */
     }
 </style>
-
 <head>
     <meta charset="UTF-8">
-    <title>Varukorg</title>
+    <title>basket</title>
 </head>
 <body>
 <table>
@@ -94,44 +75,48 @@
     <tr>
         <th>Product ID</th>
         <th>Quantity</th>
-        <th>Total Cost</th>
+        <th>Total</th>
     </tr>
     </thead>
     <tbody>
     <!-- iterera genom som for each loop  -->
     <tr th:each=" order : ${basketItems}">
-        <td th:text="${order.getProductid()}">Product id</td>
-        <td th:text="${order.getQuantity()}">quantity</td>
-        <td th:text="${order.getTotalcost()}">Total cost</td>
+        <td th:text="${order.getProductid()}">Product ID</td>
+        <td th:text="${order.getQuantity()}">Quantity</td>
+        <td th:text="${order.getTotalcost()}">Cost</td>
         <td>
         <form action="/removeitem" method="post">
             <input type="hidden" name="input" th:value="${order.getProductid()}">
             <button type="submit">Delete</button>
         </form>
         </td>
+        <form method="post" action="/addorder">
+            <input type="hidden" name="username" placeholder="User ID" required="required" th:value="${order.getCustomerid()}">
+            <button type="submit" name="order">Order</button>
+        </form>
     </tr>
     </tbody>
 </table>
 
-<br>
-
-<a href="search"> <button>Tillbaka till sökruta </button> </a>
-
-<form action="/removeitem" method="post">
-    <input type="number" name="input" placeholder="Ange produkt-Id" required="required">
-    <button>Ta bort från din korg</button>
-</form>
+<a href="search"> <button>Back to search </button> </a>
 
 <form action="/removeitemamount" method="post">
-    <input type="number" name="input" placeholder="Ange produkt-Id" required="required">
-    <input type="number" name="amount" placeholder="Ange antal" required="required">
-    <button>Ta bort antal från dina varor</button>
+    <input type="number" name="input" placeholder="Product ID" required="required">
+    <input type="number" name="amount" placeholder="Amount" required="required">
+    <button>Remove amount</button>
+</form>
+
+<form action="/addamount" method="post">
+    <input type="number" name="input" placeholder="Product ID" required="required">
+    <input type="number" name="amount" placeholder="Amount" required="required">
+    <button>Add amount</button>
 </form>
 
 <form method="post" action="/addorder">
-    <input type="number" name="username" placeholder="Ange ditt ID" required="required">
-    <button type="submit" name="order">Beställ</button>
+    <input type="number" name="username" placeholder="User ID" required="required">
+    <button type="submit" name="order">Order</button>
 </form>
+
 </body>
 
 </html>
