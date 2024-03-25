@@ -38,6 +38,15 @@ public class AddOrderService {
     List<Orderdetails> basketDetails = new ArrayList<>();
     List<Orderline> basketOrderLines = new ArrayList<>();
 
+    public int setId(String name) {
+        List<Customer> findpersonid = customerRepository.findCustomerByUsername(name);
+        if (!findpersonid.isEmpty()) {
+            return findpersonid.get(0).getIdcustomer();
+        } else {
+            return -1;
+        }
+    }
+
     public int getTotalAmount() {
         int totalAmount=0;
         for (Orderdetails orderdetail : basketDetails) {

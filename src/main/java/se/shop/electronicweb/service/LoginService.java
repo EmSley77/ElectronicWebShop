@@ -20,7 +20,7 @@ public class LoginService {
     public String login(String username, String password) {
         Customer loginPerson = customerRepository.findCustomerByUsernameAndPassword(username, password);
         if (loginPerson != null && username.equalsIgnoreCase(loginPerson.getUsername()) && password.equalsIgnoreCase(loginPerson.getPassword())) {
-           return "Login granted, welcome:";
+            return "Login granted, welcome:";
         }
         else return "Wrong credentials";
     }
@@ -46,6 +46,14 @@ public class LoginService {
         List<Customer> role = customerRepository.findCustomerByUsername(username);
         for (Customer c: role) {
             return c.getRole();
+        }
+        return -1;
+    }
+
+    public int getId(String username) {
+        List<Customer> id = customerRepository.findCustomerByUsername(username);
+        for (Customer c: id) {
+            return c.getIdcustomer();
         }
         return -1;
     }

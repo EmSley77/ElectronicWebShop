@@ -90,30 +90,29 @@
             <button type="submit">Delete</button>
         </form>
         </td>
-        <form method="post" action="/addorder">
-            <input type="hidden" name="username" placeholder="User ID" required="required" th:value="${order.getCustomerid()}">
-            <button type="submit" name="order">Order</button>
-        </form>
+        <td>
+            <form action="/addamount" method="post">
+                <input type="hidden" name="input" placeholder="Product ID" required="required" th:value="${order.getProductid()}">
+                <input type="number" name="amount" placeholder="Amount" required="required">
+                <button>Add amount</button>
+            </form>
+        </td>
+        <td>
+            <form action="/removeitemamount" method="post">
+                <input type="hidden" name="input" placeholder="Product ID" required="required" th:value="${order.getProductid()}">
+                <input type="number" name="amount" placeholder="Amount" required="required">
+                <button>Remove amount</button>
+            </form>
+        </td>
+
     </tr>
     </tbody>
 </table>
 
 <a href="search"> <button>Back to search </button> </a>
 
-<form action="/removeitemamount" method="post">
-    <input type="number" name="input" placeholder="Product ID" required="required">
-    <input type="number" name="amount" placeholder="Amount" required="required">
-    <button>Remove amount</button>
-</form>
-
-<form action="/addamount" method="post">
-    <input type="number" name="input" placeholder="Product ID" required="required">
-    <input type="number" name="amount" placeholder="Amount" required="required">
-    <button>Add amount</button>
-</form>
-
 <form method="post" action="/addorder">
-    <input type="number" name="username" placeholder="User ID" required="required">
+    <input type="hidden" name="username" placeholder="User ID" required="required">
     <button type="submit" name="order">Order</button>
 </form>
 
