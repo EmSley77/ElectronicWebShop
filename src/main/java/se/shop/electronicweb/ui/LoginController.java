@@ -1,6 +1,9 @@
 package se.shop.electronicweb.ui;
 //Emanuel sleyman
 //2024-03-22
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import se.shop.electronicweb.entity.Orderdetails;
 import se.shop.electronicweb.service.AddOrderService;
 import se.shop.electronicweb.service.LoginService;
 
@@ -21,16 +25,12 @@ public class LoginController {
     @Autowired
     AddOrderService addOrderService;
 
-    int id;
-
     @PostMapping("loginattempt")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
 
         String loginResult = service.login(username, password);
         if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 0) {
             model.addAttribute("login", loginResult);
-            // service.getId(username);
-            id = addOrderService.getCustomerId(username,password);
             return "redirect:/electronicspage.html";
         }
         else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {

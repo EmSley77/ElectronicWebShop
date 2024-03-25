@@ -35,12 +35,13 @@ public class AddOrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    List<Orderdetails> basketDetails = new ArrayList<>();
-    List<Orderline> basketOrderLines = new ArrayList<>();
+    public List<Orderdetails> basketDetails = new ArrayList<>();
+    public List<Orderline> basketOrderLines = new ArrayList<>();
 
     public int getCustomerId(String username, String password) {
         Customer findpersonid = customerRepository.findCustomerByUsernameAndPassword(username, password);
         if (findpersonid != null) {
+            System.out.println(findpersonid.getIdcustomer());
             return findpersonid.getIdcustomer();
         } else return -1;
     }
@@ -81,8 +82,8 @@ public class AddOrderService {
     }
 
     //Order the items and store in db
-    public Object orderItems(int userId) {
-        List<Customer> findCustomer = customerRepository.findCustomerByIdcustomer(userId);
+    public Object orderItems(String username) {
+        List<Customer> findCustomer = customerRepository.findCustomerByUsername(username);
         if (findCustomer != null && !basketDetails.isEmpty()) {
             for (Customer c : findCustomer) {
                 for (Orderdetails orderdetails : basketDetails) {

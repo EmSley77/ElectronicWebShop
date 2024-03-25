@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order-Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3b5998;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e8f0fe;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="number"],
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 100px;
+        }
+
+        button {
+            background-color: #181d56; /* Green button */
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2b3c73; /* Darker green on hover */
+        }
+
+        a {
+            text-decoration: none;
+            color: #203665; /* Green link */
+        }
+
+        a:hover {
+            color: #182f49; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each=" order : ${basketItems}">
+        <td th:text="${order.getProductid()}">Product ID</td>
+        <td th:text="${order.getQuantity()}">Quantity</td>
+        <td th:text="${order.getTotalcost()}">Cost</td>
+    </tr>
+    </tbody>
+</table>
+<form method="post" action="/orderpage">
+    <input type="text" name="username" placeholder="Username">
+    <button type="submit" name="order">Order</button>
+</form>
+</body>
+</html>
