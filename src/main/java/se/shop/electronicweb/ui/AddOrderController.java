@@ -16,6 +16,8 @@ public class AddOrderController {
     @Autowired
     AddOrderService addOrderService;
 
+    LoginController c = new LoginController();
+
     @PostMapping("/basket")
     public String addToBasket(@RequestParam(name = "id") int id,
                               Model model) {
@@ -26,9 +28,9 @@ public class AddOrderController {
 
 
     @PostMapping("/addorder")
-    public String doSetOrder(@RequestParam(name = "username")int username, Model model) {
-        // Place the order
-        model.addAttribute("addorder",addOrderService.orderItems(username));
+    public String doSetOrder(@RequestParam int personId, Model model) {
+        personId = c.id;
+        model.addAttribute("addorder",addOrderService.orderItems(personId));
         return "thankspage";
     }
 

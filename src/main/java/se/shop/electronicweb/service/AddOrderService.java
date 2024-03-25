@@ -38,10 +38,10 @@ public class AddOrderService {
     List<Orderdetails> basketDetails = new ArrayList<>();
     List<Orderline> basketOrderLines = new ArrayList<>();
 
-    public int setId(String name) {
-        List<Customer> findpersonid = customerRepository.findCustomerByUsername(name);
-        if (!findpersonid.isEmpty()) {
-            return findpersonid.get(0).getIdcustomer();
+    public int getCustomerId(String name, String password) {
+        Customer findpersonid = customerRepository.findCustomerByUsernameAndPassword(name, password);
+        if (findpersonid != null) {
+            return findpersonid.getIdcustomer();
         } else {
             return -1;
         }

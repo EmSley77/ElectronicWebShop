@@ -15,6 +15,7 @@ import se.shop.electronicweb.service.LoginService;
 @Controller
 public class LoginController {
 
+    int id;
     @Autowired
     LoginService service;
 
@@ -28,7 +29,7 @@ public class LoginController {
         if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 0) {
             model.addAttribute("login", loginResult);
             // service.getId(username);
-           // addOrderService.
+            id = addOrderService.getCustomerId(username,password);
             return "redirect:/electronicspage.html";
         }
         else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {
