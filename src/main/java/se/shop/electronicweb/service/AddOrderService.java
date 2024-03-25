@@ -2,7 +2,6 @@ package se.shop.electronicweb.service;
 //Emanuel sleyman
 //2024-03-07
 
-import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -18,8 +17,6 @@ import se.shop.electronicweb.repositorys.OrderRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -138,4 +135,6 @@ public class AddOrderService {
         }
         return basketDetails;
     }
+
+
 }
