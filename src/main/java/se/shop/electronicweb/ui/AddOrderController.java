@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import se.shop.electronicweb.entity.Orderdetails;
 import se.shop.electronicweb.service.AddOrderService;
+import se.shop.electronicweb.service.LoginService;
 
 @Controller
 public class AddOrderController {
@@ -16,7 +18,7 @@ public class AddOrderController {
     @Autowired
     AddOrderService addOrderService;
 
-    LoginController c = new LoginController();
+    LoginController loginController = new LoginController();
 
     @PostMapping("/basket")
     public String addToBasket(@RequestParam(name = "id") int id,
@@ -27,13 +29,13 @@ public class AddOrderController {
     }
 
 
-    @PostMapping("/addorder")
-    public String doSetOrder(@RequestParam int personId, Model model) {
-        personId = c.id;
-        model.addAttribute("addorder",addOrderService.orderItems(personId));
-        return "thankspage";
+    @PostMapping("/addorder") // needs to be fixed!
+    public String doSetOrder(@RequestParam int id, Model model) {
+            model.addAttribute("addorder", addOrderService.orderItems(id));
+            return "thankspage";
+        }
+
     }
 
 
 
-}

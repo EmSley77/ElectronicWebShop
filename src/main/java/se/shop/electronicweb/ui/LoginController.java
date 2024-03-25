@@ -15,12 +15,13 @@ import se.shop.electronicweb.service.LoginService;
 @Controller
 public class LoginController {
 
-    int id;
     @Autowired
     LoginService service;
 
     @Autowired
     AddOrderService addOrderService;
+
+    int id;
 
     @PostMapping("loginattempt")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
