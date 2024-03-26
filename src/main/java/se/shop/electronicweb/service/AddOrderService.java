@@ -38,26 +38,10 @@ public class AddOrderService {
     public List<Orderdetails> basketDetails = new ArrayList<>();
     public List<Orderline> basketOrderLines = new ArrayList<>();
 
-    public int getCustomerId(String username, String password) {
-        Customer findpersonid = customerRepository.findCustomerByUsernameAndPassword(username, password);
-        if (findpersonid != null) {
-            System.out.println(findpersonid.getIdcustomer());
-            return findpersonid.getIdcustomer();
-        } else return -1;
-    }
-
-    public int getTotalAmount() {
-        int totalAmount=0;
-        for (Orderdetails orderdetail : basketDetails) {
-            totalAmount += orderdetail.getQuantity();
-        }
-        return totalAmount;
-    }
-
     public double getTotalCost() {
-        double totalCost=0;
-        for (Orderdetails orderdetail : basketDetails) {
-            totalCost += orderdetail.getTotalcost();
+        double totalCost =0;
+        for (int i = 0; i < basketDetails.size(); i++) {
+            totalCost += basketDetails.get(i).getTotalcost();
         }
         return totalCost;
     }
@@ -82,8 +66,8 @@ public class AddOrderService {
     }
 
     //Order the items and store in db
-    public Object orderItems(String username) {
-        List<Customer> findCustomer = customerRepository.findCustomerByUsername(username);
+    public Object orderItems(String username, String password) {
+        List<Customer> findCustomer = customerRepository.findCustomerByUsernameAndPassword(username, password);
         if (findCustomer != null && !basketDetails.isEmpty()) {
             for (Customer c : findCustomer) {
                 for (Orderdetails orderdetails : basketDetails) {
@@ -184,6 +168,8 @@ public class AddOrderService {
         }
         return basketDetails;
     }
+
+
 
 
 }

@@ -18,11 +18,14 @@ public class LoginService {
     CustomerRepository customerRepository;
 
     public String login(String username, String password) {
-        Customer loginPerson = customerRepository.findCustomerByUsernameAndPassword(username, password);
-        if (loginPerson != null && username.equalsIgnoreCase(loginPerson.getUsername()) && password.equalsIgnoreCase(loginPerson.getPassword())) {
-            return "Login granted, welcome:";
+        List<Customer> loginPerson = customerRepository.findCustomerByUsernameAndPassword(username, password);
+        for (int i = 0; i < loginPerson.size(); i++) {
+            if (loginPerson != null && username.equalsIgnoreCase(loginPerson.get(i).getUsername()) && password.equalsIgnoreCase(loginPerson.get(i).getPassword())) {
+                return "Login granted, welcome:";
+            }
+            else return "Wrong credentials";
         }
-        else return "Wrong credentials";
+        return "something went wrong";
     }
 
     public String createLogin(String name, String lastN, String email, String adress, String username, String password) {

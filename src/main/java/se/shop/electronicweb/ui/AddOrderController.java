@@ -26,15 +26,15 @@ public class AddOrderController {
 
     @GetMapping("/addorder") // needs to be fixed!
     public String doSetOrder(Model model) {
-        model.addAttribute("ordernext","");
+        model.addAttribute("basketItems", addOrderService.getBasketItems());
+        model.addAttribute("cost", addOrderService.getTotalCost());
         return "orderpage";
     }
 
 
-    @PostMapping("/orderpage")
-    public String order(Model model, @RequestParam String username) {
-        model.addAttribute("order", addOrderService.orderItems(username));
-        model.addAttribute("basketItems", addOrderService.getBasketItems());
+    @PostMapping("/orderpage") // needs some finetuing for it to work properly!
+    public String order(Model model, @RequestParam String username, @RequestParam String password) {
+        model.addAttribute("order", addOrderService.orderItems(username,password));
         return "thankspage";
     }
 }

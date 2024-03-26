@@ -1,73 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    input[type="number"] {
+        padding: 6px;
+        width: 200px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        padding: 8px 20px;
+        background-color: #4c60af;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #4551a0;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
-    <title>Order-Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f5f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #3b5998;
-            color: #fff;
-        }
-
-        tr:nth-child(even) {
-            background-color: #e8f0fe;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        input[type="number"],
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        input[type="number"] {
-            width: 100px;
-        }
-
-        button {
-            background-color: #181d56; /* Green button */
-            color: white;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #2b3c73; /* Darker green on hover */
-        }
-
-        a {
-            text-decoration: none;
-            color: #203665; /* Green link */
-        }
-
-        a:hover {
-            color: #182f49; /* Darker green on hover */
-        }
-    </style>
+    <title>Order</title>
 </head>
 <body>
 <table>
@@ -75,20 +45,25 @@
     <tr>
         <th>Product ID</th>
         <th>Quantity</th>
-        <th>Total</th>
+        <th>Total Cost</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each=" order : ${basketItems}">
-        <td th:text="${order.getProductid()}">Product ID</td>
+    <!-- iterera genom som for each loop  -->
+    <tr th:each="order : ${basketItems}">
+        <td th:text="${order.getProductid()}">Product id</td>
         <td th:text="${order.getQuantity()}">Quantity</td>
-        <td th:text="${order.getTotalcost()}">Cost</td>
+        <td th:text="${order.getTotalcost()}">Total cost</td>
     </tr>
     </tbody>
 </table>
+<a>Totala priset: <span th:text="${cost}"></span></a>
+<br>
+<br>
 <form method="post" action="/orderpage">
-    <input type="text" name="username" placeholder="Username">
-    <button type="submit" name="order">Order</button>
+    <input type="text" name="username" placeholder="Användarnamn" required="required">
+    <input type="password" name="password" placeholder="Lösenord" required="required">
+    <button type="submit" name="order">Beställ</button>
 </form>
 </body>
 </html>
