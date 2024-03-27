@@ -74,18 +74,29 @@ public class AddOrderService {
             for (Customer c : findCustomer) {
                 for (Orderdetails orderdetails : basketDetails) {
                     orderdetails.setCustomerid(c.getIdcustomer());
-                    if (!basketDetails.isEmpty()) {
-                        orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
-                        orderRepository.save(orderdetails);
-                        for (Orderline orderline : basketOrderLines) {
-                            if (orderline.getProductid() == orderdetails.getProductid()) {
-                                orderline.setOrderdetailid(orderdetails.getIdorderdetails());
-                                orderLineRepository.save(orderline);
+                    List<Electronic> electronic = electronicRepository.findByIdelectronic(orderdetails.getProductid());
+                    for (Electronic e: electronic) {
+                        if (!basketDetails.isEmpty()) {
+                            int availablequantity = e.getAvailable();
+                            int orderAmount = orderdetails.getQuantity();
+                            if (orderAmount <= availablequantity) {
+                                orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
+                                e.setAvailable(availablequantity - orderAmount);
+                                orderRepository.save(orderdetails);
+
+                                for (Orderline orderline : basketOrderLines) {
+                                    if (orderline.getProductid() == orderdetails.getProductid()) {
+                                        orderline.setOrderdetailid(orderdetails.getIdorderdetails());
+                                        orderLineRepository.save(orderline);
+                                    }
+                                }
+                            } else {
+                                return "something went wrong with basket";
                             }
                         }
-                    } else {
-                        return "something went wrong with basket";
+
                     }
+
                 }
             }
             basketOrderLines.clear();
