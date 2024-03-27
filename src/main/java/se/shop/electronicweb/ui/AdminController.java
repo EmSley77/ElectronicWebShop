@@ -46,9 +46,10 @@ public class AdminController {
                           @RequestParam  double price,
                           @RequestParam  String color,
                           @RequestParam  String size,
+                          @RequestParam  int available,
                           Model model)
     {
-        model.addAttribute("add", adminService.addItem(company, categori, name, price, color, size));
+        model.addAttribute("add", adminService.addItem(company, categori, name, price, color, size, available));
         return "redirect:/adminpage.html";
     }
     @PostMapping("remove")

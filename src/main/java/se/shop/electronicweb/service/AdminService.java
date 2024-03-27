@@ -64,7 +64,7 @@ public class AdminService {
         return orders;
     }
 
-    public String addItem(String company, String categori, String name, double price, String color, String size) {
+    public String addItem(String company, String categori, String name, double price, String color, String size, int available) {
         Electronic electronic = new Electronic();
 
         electronic.setCompany(company);
@@ -73,6 +73,7 @@ public class AdminService {
         electronic.setPrice(price);
         electronic.setColor(color);
         electronic.setSize(size);
+        electronic.setAvailable(available);
         List<Electronic> findElectronic = electronicRepository.findAll();
         for (Electronic e: findElectronic) {
             if (electronic.getIdelectronic() == e.getIdelectronic()) {

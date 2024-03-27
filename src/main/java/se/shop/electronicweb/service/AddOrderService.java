@@ -49,19 +49,21 @@ public class AddOrderService {
     public void addToBasket(int id) {
         List<Electronic> products = electronicRepository.findByIdelectronic(id);
         for (Electronic product : products) {
-            Orderdetails orderDetail = new Orderdetails();
-            orderDetail.setQuantity(1); //amount start with 1 chnage later :)
-            orderDetail.setProductid(id);
-            orderDetail.setTotalcost(product.getPrice() * orderDetail.getQuantity()); // * amount
+            if (product != null && product.getAvailable() >= 1 ) {
+                Orderdetails orderDetail = new Orderdetails();
+                orderDetail.setQuantity(1);
+                orderDetail.setProductid(id);
+                orderDetail.setTotalcost(product.getPrice() * orderDetail.getQuantity());
 
-            Orderline orderline = new Orderline();
-            orderline.setOrderdetailid(orderDetail.getIdorderdetails());
-            orderline.setProductid(id);
-            orderline.setQuantityamount(orderDetail.getQuantity());
-            orderline.setStatus("Packing");
+                Orderline orderline = new Orderline();
+                orderline.setOrderdetailid(orderDetail.getIdorderdetails());
+                orderline.setProductid(id);
+                orderline.setQuantityamount(orderDetail.getQuantity());
+                orderline.setStatus("Packing");
 
-            basketDetails.add(orderDetail);
-            basketOrderLines.add(orderline);
+                basketDetails.add(orderDetail);
+                basketOrderLines.add(orderline);
+            } else System.out.println("product not available!");
         }
     }
 
@@ -96,6 +98,14 @@ public class AddOrderService {
 
     public List<Orderdetails> getBasketItems() {
         return basketDetails;
+    }
+
+    public int getAvailability(int id) {
+       List <Electronic> e = electronicRepository.findByIdelectronic(id);
+        for (Electronic electronic: e) {
+            return electronic.getAvailable();
+        }
+        return -1;
     }
 
     public List<Orderdetails> removeItemFromBasket(int input) {
@@ -148,21 +158,23 @@ public class AddOrderService {
         double price = getPrice(productId);
         for (int i = 0; i < basketDetails.size(); i++) {
             Orderdetails item = basketDetails.get(i);
+
             if (productId == item.getProductid()) {
                 int productAmountInBasket = item.getQuantity() + amount;
                 double newPrice = price * productAmountInBasket;
-                if (productAmountInBasket <= 0) {
-                    basketDetails.remove(i);
-                    break;
-                } else {
+                if (productAmountInBasket < getAvailability(productId)) {
                     item.setQuantity(productAmountInBasket);
                     item.setTotalcost(newPrice);
-                    for (Orderline orderline : basketOrderLines) {
-                        if (orderline.getProductid() == item.getProductid()) {
-                            orderline.setQuantityamount(productAmountInBasket);
-                            break;
+                    for (Electronic e : electronicRepository.findAll()) {
+                        for (Orderline orderline : basketOrderLines) {
+                            if (orderline.getProductid() == item.getProductid() && e.getAvailable() >= productAmountInBasket) {
+                                orderline.setQuantityamount(productAmountInBasket);
+                                break;
+                            }
                         }
                     }
+                } else {
+                    break;
                 }
             }
         }

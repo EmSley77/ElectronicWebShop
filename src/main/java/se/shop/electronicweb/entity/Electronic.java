@@ -27,31 +27,43 @@ public class Electronic {
     @Basic
     @Column(name = "size", nullable = false, length = 45)
     private String size;
+    @Basic
+    @Column(name = "available", nullable = false, length = 45)
+    private int available;
 
     @Override
     public String toString() {
         return "Electronic{" +
-                "\n   ID: " + idelectronic +
-                "\n   Company: " + company +
-                "\n   Category: " + categori +
-                "\n   Name: " + name +
-                "\n   Price: $" + price +
-                "\n   Color: " + color +
-                "\n   Size: " + size +
-                "\n}";
+                "idelectronic=" + idelectronic +
+                ", company='" + company + '\'' +
+                ", categori='" + categori + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", color='" + color + '\'' +
+                ", size='" + size + '\'' +
+                ", available=" + available +
+                '}';
     }
 
-
-    public Electronic(String company, String categori, String name, double price, String color, String size) {
+    public Electronic(String company, String categori, String name, double price, String color, String size, int available) {
         this.company = company;
         this.categori = categori;
         this.name = name;
         this.price = price;
         this.color = color;
         this.size = size;
+        this.available = available;
     }
 
     public Electronic() {
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
     public int getIdelectronic() {
@@ -110,36 +122,4 @@ public class Electronic {
         this.size = size;
     }
 
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Electronic that = (Electronic) o;
-
-        if (idelectronic != that.idelectronic) return false;
-        if (Double.compare(price, that.price) != 0) return false;
-        if (company != null ? !company.equals(that.company) : that.company != null) return false;
-        if (categori != null ? !categori.equals(that.categori) : that.categori != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (color != null ? !color.equals(that.color) : that.color != null) return false;
-        if (size != null ? !size.equals(that.size) : that.size != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = idelectronic;
-        result = 31 * result + (company != null ? company.hashCode() : 0);
-        result = 31 * result + (categori != null ? categori.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        temp = Double.doubleToLongBits(price);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        result = 31 * result + (size != null ? size.hashCode() : 0);
-        return result;
-    }*/
 }

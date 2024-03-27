@@ -29,7 +29,6 @@ public class ElectronicService {
         }
     }
     public List<Electronic> getAll() {
-        List<Electronic> electronicList = electronicRepository.findAll();
-        return  electronicList;
+        return electronicRepository.findAll();
     }
 }
