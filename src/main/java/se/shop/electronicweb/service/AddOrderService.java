@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @SessionScope
@@ -65,6 +66,18 @@ public class AddOrderService {
                 basketOrderLines.add(orderline);
             } else System.out.println("product not available!");
         }
+    }
+
+    public String setStatusSent(int id) {
+        Optional<Orderline> item = orderLineRepository.findById(id);
+            if (item.isPresent()) {
+                Orderline order = item.get();
+                    order.setStatus("Sent");
+                    orderLineRepository.save(order);
+                    return "Sucessfully sent package";
+            } else{
+                return "something went wrong";
+            }
     }
 
     //Order the items and store in db

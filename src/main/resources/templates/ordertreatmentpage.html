@@ -53,7 +53,12 @@
         <td th:text="${order.getTotalcost()}">-</td>
         <td th:text="${order.getCustomerid()}">-</td>
         <td th:text="${order.getTime()}">-</td>
-
+        <td>
+            <form action="sendpackage" method="post">
+                <input type="hidden"  name="id" th:value="${order.getProductid()}">
+                <button type="submit">Sent</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

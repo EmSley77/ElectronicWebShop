@@ -2,14 +2,17 @@ package se.shop.electronicweb.service;
 
 //Emanuel sleyman
 //2024-03-23
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 import se.shop.electronicweb.entity.Customer;
 import se.shop.electronicweb.entity.Electronic;
 import se.shop.electronicweb.entity.Orderdetails;
+import se.shop.electronicweb.entity.Orderline;
 import se.shop.electronicweb.repositorys.CustomerRepository;
 import se.shop.electronicweb.repositorys.ElectronicRepository;
+import se.shop.electronicweb.repositorys.OrderLineRepository;
 import se.shop.electronicweb.repositorys.OrderRepository;
 
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ public class AdminService {
     //Orders need to get handled!
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderLineRepository orderLineRepository;
+
 
     @Autowired
     ElectronicRepository electronicRepository;
@@ -86,6 +93,7 @@ public class AdminService {
         }
         return "something went wrong here";
     }
+
     public List<Electronic> removeItem(int id) {
         List<Electronic> findelectronic = electronicRepository.findByIdelectronic(id);
         for (int i = 0; i < findelectronic.size() ;i++) {
@@ -104,5 +112,10 @@ public class AdminService {
     public List<Orderdetails> getAllOrders() {
         return orderRepository.findAll();
     }
+
+    public List<Orderline> getAllOrderLines() {
+        return orderLineRepository.findAll();
+    }
 }
+
 

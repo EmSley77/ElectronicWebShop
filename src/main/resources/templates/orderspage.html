@@ -25,26 +25,30 @@
     </style>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>Customer-ID</th>
-        <th>Product-ID</th>
-        <th>Quantity</th>
-        <th>Cost</th>
-        <th>Time</th>
-    </tr>
-    </thead>
-    <tbody>
-     <tr th:each="item : ${allorder}">
-        <td th:text="${item.getCustomerid()}">Customer-ID</td>
-       <td th:text="${item.getProductid()}">Product-ID</td>
-       <td th:text="${item.getQuantity()}">Quantity</td>
-       <td th:text="${item.getTotalcost()}">Cost</td>
-    <td th:text="${item.getTime()}">Time</td>
-    </tr>
-    </tbody>
-</table>
-
+    <table>
+        <thead>
+        <tr>
+            <th>Order-ID</th>
+            <th>Product-ID</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.getOrderlineid()}"></td>
+            <td th:text="${order.getOrderdetailid()}"></td>
+            <td th:text="${order.getProductid()}"></td>
+            <td th:text="${order.getQuantityamount()}"></td>
+            <td th:text="${order.getStatus()}"></td>
+            <td>
+                <form action="sendpackage" method="post">
+                <input type="hidden" name="id" th:value="${order.getOrderlineid()}">
+                <button type="submit">Sent</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </body>
-</html>

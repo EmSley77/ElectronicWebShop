@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.shop.electronicweb.enumhelp.Helper;
+import se.shop.electronicweb.service.AddOrderService;
 import se.shop.electronicweb.service.AdminService;
 
 @Controller
@@ -15,6 +16,9 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    AddOrderService orderService;
 
     @PostMapping("createadmin")
     public String createLogin(@RequestParam String name,
@@ -59,6 +63,19 @@ public class AdminController {
         model.addAttribute("removeitem", adminService.removeItem(id));
         model.addAttribute("items",adminService.allElectronics());
         return "allitemsinstorepage";
+    }
+
+    @PostMapping("sendpackage")
+    public String send(Model model, int id) {
+        model.addAttribute("orders", adminService.getAllOrderLines());
+        model.addAttribute("packaging", orderService.setStatusSent(id));
+        return "orderspage";
+    }
+
+    @GetMapping("getorderlines")
+    public String getOrder(Model model) {
+        model.addAttribute("orders", adminService.getAllOrderLines());
+        return "orderspage";
     }
 
     @GetMapping("all")

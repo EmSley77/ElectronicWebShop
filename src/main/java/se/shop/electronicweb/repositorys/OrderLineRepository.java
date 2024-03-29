@@ -4,5 +4,7 @@ package se.shop.electronicweb.repositorys;
 import org.springframework.data.jpa.repository.JpaRepository;
 import se.shop.electronicweb.entity.Orderline;
 
+import java.util.List;
+
 public interface OrderLineRepository extends JpaRepository<Orderline, Integer> {
 }

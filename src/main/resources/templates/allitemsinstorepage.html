@@ -29,6 +29,20 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        form {
+            display: inline; /* To align the button horizontally with the table */
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #4144e5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #4557a0;
+        }
     </style>
 </head>
 <body>
@@ -45,8 +59,6 @@
         <td th:text="${item.getAvailable()}">Available</td>
         <td>
             <form action="removefrominventory" method="post">
-                <a>Romve from inventory & DB</a>
-                <br>
                 <input name="id" type="hidden"th:value="${item.getIdelectronic()}">
                 <button type="submit">Delete</button>
             </form>
