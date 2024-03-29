@@ -7,4 +7,6 @@ import se.shop.electronicweb.entity.Orderline;
 import java.util.List;
 
 public interface OrderLineRepository extends JpaRepository<Orderline, Integer> {
+
+    List<Orderline> findOrderlineByStatus(String status);
 }

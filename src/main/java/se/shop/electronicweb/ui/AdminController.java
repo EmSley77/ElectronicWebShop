@@ -67,14 +67,14 @@ public class AdminController {
 
     @PostMapping("sendpackage")
     public String send(Model model, int id) {
-        model.addAttribute("orders", adminService.getAllOrderLines());
+        model.addAttribute("orders", adminService.ordersReady());
         model.addAttribute("packaging", orderService.setStatusSent(id));
         return "orderspage";
     }
 
     @GetMapping("getorderlines")
     public String getOrder(Model model) {
-        model.addAttribute("orders", adminService.getAllOrderLines());
+        model.addAttribute("orders", adminService.ordersReady());
         return "orderspage";
     }
 

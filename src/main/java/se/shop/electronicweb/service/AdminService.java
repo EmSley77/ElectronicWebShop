@@ -116,6 +116,11 @@ public class AdminService {
     public List<Orderline> getAllOrderLines() {
         return orderLineRepository.findAll();
     }
+
+    public List<Orderline> ordersReady() {
+        List<Orderline> order = orderLineRepository.findOrderlineByStatus("Packing");
+        return new ArrayList<>(order);
+    }
 }
 
 

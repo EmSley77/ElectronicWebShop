@@ -28,8 +28,9 @@
     <table>
         <thead>
         <tr>
-            <th>Order-ID</th>
-            <th>Product-ID</th>
+            <th>OrderLine-ID</th>
+            <th>orderdetail-ID</th>
+            <th>product-Id</th>
             <th>Quantity</th>
             <th>Status</th>
             <th>Action</th>
@@ -45,7 +46,7 @@
             <td>
                 <form action="sendpackage" method="post">
                 <input type="hidden" name="id" th:value="${order.getOrderlineid()}">
-                <button type="submit">Sent</button>
+                <button type="submit">Send package</button>
                 </form>
             </td>
         </tr>
