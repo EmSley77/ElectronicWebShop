@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import se.shop.electronicweb.entity.Orderdetails;
+import se.shop.electronicweb.enumhelp.Helper;
 import se.shop.electronicweb.service.AddOrderService;
 import se.shop.electronicweb.service.LoginService;
 
@@ -29,11 +30,11 @@ public class LoginController {
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
 
         String loginResult = service.login(username, password);
-        if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 0) {
+        if (loginResult.equals(Helper.LOGIN_GRANTED.getMessage()) && service.getRole(username) == 0) {
             model.addAttribute("login", loginResult);
             return "redirect:/electronicspage.html";
         }
-        else if (loginResult.equals("Login granted, welcome:") && service.getRole(username) == 1) {
+        else if (loginResult.equals(Helper.LOGIN_GRANTED.getMessage()) && service.getRole(username) == 1) {
             model.addAttribute("login", loginResult);
             return "redirect:/adminpanelpage.html";
         }
@@ -51,7 +52,7 @@ public class LoginController {
     {
         String newLogin =  service.createLogin(name,lastN,email,adress,username,password);
         model.addAttribute("createlogincred",newLogin);
-        if (newLogin.equals("Login credentials created, welcome"))  {
+        if (newLogin.equals(Helper.NEW_LOGIN_CREATED.getMessage()))  {
             return "redirect:/loginpage.html";
         } else {
             return "redirect:/loginpage.html";

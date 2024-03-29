@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import se.shop.electronicweb.enumhelp.Helper;
 import se.shop.electronicweb.service.AdminService;
 
 @Controller
@@ -26,7 +27,7 @@ public class AdminController {
     {
         String newLogin =  adminService.createAdmin(name,lastN,email,adress,username,password);
         model.addAttribute("createlogin",newLogin);
-        if (newLogin.equals("Admin created, welcome"))  {
+        if (newLogin.equals(Helper.ADMIN_REG.getMessage()))  {
             return "redirect:/adminpage.html";
         } else {
             return "redirect:/loginpage.html";
@@ -52,11 +53,12 @@ public class AdminController {
         model.addAttribute("add", adminService.addItem(company, categori, name, price, color, size, available));
         return "redirect:/adminpage.html";
     }
-    @PostMapping("remove")
-    public String removeItem(int id, Model model){
+
+    @PostMapping("removefrominventory")
+    public String removeItemFromDb(int id, Model model){
         model.addAttribute("removeitem", adminService.removeItem(id));
-        adminService.allElectronics();
-        return "redirect:/adminpage.html";
+        model.addAttribute("items",adminService.allElectronics());
+        return "allitemsinstorepage";
     }
 
     @GetMapping("all")

@@ -32,7 +32,7 @@ public class AddOrderController {
         }
     }
 
-    @GetMapping("/addorder") // needs to be fixed!
+    @GetMapping("/addorder")
     public String doSetOrder(Model model) {
         model.addAttribute("basketItems", addOrderService.getBasketItems());
         model.addAttribute("cost", addOrderService.getTotalCost());
@@ -40,7 +40,7 @@ public class AddOrderController {
     }
 
 
-    @PostMapping("/orderpage") // needs some finetuing for it to work properly!
+    @PostMapping("/orderpage")
     public String order(Model model, @RequestParam String username, @RequestParam String password) {
         model.addAttribute("order", addOrderService.orderItems(username,password));
         return "thankspage";

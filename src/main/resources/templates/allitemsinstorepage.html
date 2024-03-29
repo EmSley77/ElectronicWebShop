@@ -43,9 +43,20 @@
         <td th:text="${item.getSize()}">Size</td>
         <td th:text="${item.getPrice()}">Price</td>
         <td th:text="${item.getAvailable()}">Available</td>
+        <td>
+            <form action="removefrominventory" method="post">
+                <a>Romve from inventory & DB</a>
+                <br>
+                <input name="id" type="hidden"th:value="${item.getIdelectronic()}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
 
     </tr>
     </thead>
 </table>
+<form action="adminpage" method="get">
+    <button type="submit">Back to admin-page</button>
+</form>
 </body>
 </html>

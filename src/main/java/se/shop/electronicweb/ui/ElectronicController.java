@@ -29,10 +29,8 @@ public class ElectronicController {
     public String getProduct(@RequestParam(name = "search", required = false) String search, Model model) {
         List<Electronic> findElectronics;
         if (search != null && !search.isEmpty()) {
-            //här ger den vad man söker efter
             findElectronics = electronicService.searchForProducts(search);
         } else {
-            //om man inte söker ger den allt
             findElectronics = electronicService.getAll();
         }
         model.addAttribute("electronics", findElectronics);
