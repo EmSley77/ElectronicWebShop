@@ -52,7 +52,7 @@
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>Computers</title>
+    <title>Videogame</title>
 </head>
 <body>
 <table>
@@ -65,15 +65,15 @@
         <th>Size</th>
         <th>Action</th>
     </tr>
-    <tr th:each="phone : ${phonelist}">
-        <td th:text="${phone.getCompany()}"></td>
-        <td th:text="${phone.getName()}"></td>
-        <td th:text="${phone.getColor()}"></td>
-        <td th:text="${phone.getPrice()}"></td>
-        <td th:text="${phone.getSize()}"></td>
+    <tr th:each="game : ${videoglist}">
+        <td th:text="${game.getCompany()}"></td>
+        <td th:text="${game.getName()}"></td>
+        <td th:text="${game.getColor()}"></td>
+        <td th:text="${game.getPrice()}"></td>
+        <td th:text="${game.getSize()}"></td>
         <td>
             <form method="post" action="/basket">
-                <input type="hidden" name="id" th:value="${phone.getIdelectronic()}">
+                <input type="hidden" name="id" th:value="${game.getIdelectronic()}">
                 <button type="submit">Add to basket</button>
             </form>
         </td>

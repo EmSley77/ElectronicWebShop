@@ -47,4 +47,9 @@ public class ElectronicService {
     public List<Electronic> findPhones() {
         return electronicRepository.findByCategori("Phone");
     }
+
+    public List<Electronic> findVideoGame() {
+        return electronicRepository.findByCategori("Videogame");
+    }
+
 }

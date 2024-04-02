@@ -63,7 +63,7 @@ public class ElectronicController {
     }
     @GetMapping("/accessories")
     public String getAccessories(Model model) {
-        if (!electronicService.findPhones().isEmpty()) {
+        if (!electronicService.findAccesories().isEmpty()) {
             model.addAttribute("accessorieslist", electronicService.findAccesories());
             return "accesoriespage";
         } else return "redirect:/electronicspage.html";
@@ -71,7 +71,7 @@ public class ElectronicController {
     }
     @GetMapping("/tv")
     public String getTv(Model model) {
-        if (!electronicService.findPhones().isEmpty()) {
+        if (!electronicService.findTvs().isEmpty()) {
             model.addAttribute("tvlist", electronicService.findTvs());
             return "tvpage";
         } else return "redirect:/electronicspage.html";
@@ -79,9 +79,17 @@ public class ElectronicController {
     }
     @GetMapping("/computers")
     public String getComputers(Model model) {
-        if (!electronicService.findPhones().isEmpty()) {
+        if (!electronicService.findComputers().isEmpty()) {
             model.addAttribute("computerlist", electronicService.findComputers());
             return "computerspage";
+        } else return "redirect:/electronicspage.html";
+    }
+
+    @GetMapping("/videogame")
+    public String getVideoGame(Model model) {
+        if (!electronicService.findVideoGame().isEmpty()) {
+            model.addAttribute("videoglist", electronicService.findVideoGame());
+            return "videogamepage";
         } else return "redirect:/electronicspage.html";
     }
 
