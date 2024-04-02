@@ -35,7 +35,8 @@ public class AddOrderController {
     @GetMapping("/addorder")
     public String doSetOrder(Model model) {
         model.addAttribute("basketItems", addOrderService.getBasketItems());
-        model.addAttribute("cost", addOrderService.getTotalCost());
+        double cost = addOrderService.getTotalCost();
+        model.addAttribute("totalcost", cost);
         return "orderpage";
     }
 

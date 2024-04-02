@@ -53,5 +53,37 @@ public class ElectronicController {
         return "redirect:/loginpage.html";
     }
 
+    @GetMapping("/phones")
+    public String getPhones(Model model) {
+        if (!electronicService.findPhones().isEmpty()) {
+            model.addAttribute("phonelist", electronicService.findPhones());
+            return "phonepage";
+        } else return "redirect:/electronicspage.html";
+
+    }
+    @GetMapping("/accessories")
+    public String getAccessories(Model model) {
+        if (!electronicService.findPhones().isEmpty()) {
+            model.addAttribute("accessorieslist", electronicService.findAccesories());
+            return "accesoriespage";
+        } else return "redirect:/electronicspage.html";
+
+    }
+    @GetMapping("/tv")
+    public String getTv(Model model) {
+        if (!electronicService.findPhones().isEmpty()) {
+            model.addAttribute("tvlist", electronicService.findTvs());
+            return "tvpage";
+        } else return "redirect:/electronicspage.html";
+
+    }
+    @GetMapping("/computers")
+    public String getComputers(Model model) {
+        if (!electronicService.findPhones().isEmpty()) {
+            model.addAttribute("computerlist", electronicService.findComputers());
+            return "computerspage";
+        } else return "redirect:/electronicspage.html";
+    }
+
 
 }

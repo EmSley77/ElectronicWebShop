@@ -31,4 +31,20 @@ public class ElectronicService {
     public List<Electronic> getAll() {
         return electronicRepository.findAll();
     }
+
+    public List<Electronic> findAccesories() {
+        return electronicRepository.findByCategori("Accesories");
+    }
+
+    public List<Electronic> findComputers() {
+        return electronicRepository.findByCategori("Computer");
+    }
+
+    public List<Electronic> findTvs() {
+        return electronicRepository.findByCategori("TV");
+    }
+
+    public List<Electronic> findPhones() {
+        return electronicRepository.findByCategori("Phone");
+    }
 }

@@ -12,6 +12,8 @@ public interface ElectronicRepository extends JpaRepository<Electronic, Integer>
 
     List<Electronic> findByIdelectronic(int id);
 
+    List<Electronic> findByCategori(String s);
+
     @Override
     Optional<Electronic> findById(Integer integer);
 }
