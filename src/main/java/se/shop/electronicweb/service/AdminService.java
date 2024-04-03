@@ -51,10 +51,14 @@ public class AdminService {
         c.setPassword(password);
         c.setRole(1);
         if (customer.isEmpty() && !customer.isPresent()) {
-            customerRepository.save(c);
-            return "Admin created, welcome";
+            synchronized (this) {
+                customerRepository.save(c);
+                return "Admin created, welcome";
+            }
 
-        } else return "something went wrong";
+            }else return "Could not save admin to database";
+
+
     }
 
     public List<Orderdetails> getorders(String username) {
@@ -83,14 +87,17 @@ public class AdminService {
         electronic.setAvailable(available);
         List<Electronic> findElectronic = electronicRepository.findAll();
         for (Electronic e: findElectronic) {
-            if (electronic.getIdelectronic() == e.getIdelectronic()) {
-                return "item already exists";
-            }
-            else {
-                electronicRepository.save(electronic);
-                return "Item was added";
+            synchronized (this) {
+                if (electronic.getIdelectronic() == e.getIdelectronic()) {
+                    return "item already exists";
+                }
+                else {
+                    electronicRepository.save(electronic);
+                    return "Item was added";
+                }
             }
         }
+
         return "something went wrong here";
     }
 

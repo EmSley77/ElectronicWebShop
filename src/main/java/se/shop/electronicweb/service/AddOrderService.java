@@ -4,6 +4,7 @@ package se.shop.electronicweb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 import se.shop.electronicweb.entity.Customer;
 import se.shop.electronicweb.entity.Electronic;
@@ -81,6 +82,7 @@ public class AddOrderService {
     }
 
     //Order the items and store in db
+    @Transactional
     public Object orderItems(String username, String password) {
         List<Customer> findCustomer = customerRepository.findCustomerByUsernameAndPassword(username, password);
         if (findCustomer != null && !basketDetails.isEmpty()) {
