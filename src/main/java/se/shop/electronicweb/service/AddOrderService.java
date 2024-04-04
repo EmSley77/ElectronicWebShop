@@ -112,9 +112,8 @@ public class AddOrderService {
                 basketOrderLines.clear();
                 basketDetails.clear();
                 return "Items were ordered";
-            } else {
-                return "Incorrect username or password";
-            }
+
+            } else return "Incorrect username or password";
         }
         return "something went really bad";
     }
