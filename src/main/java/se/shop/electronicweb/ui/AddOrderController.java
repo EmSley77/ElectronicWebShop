@@ -12,6 +12,8 @@ import se.shop.electronicweb.repositorys.ElectronicRepository;
 import se.shop.electronicweb.service.AddOrderService;
 import se.shop.electronicweb.service.ElectronicService;
 
+import java.util.Objects;
+
 @Controller
 public class AddOrderController {
     @Autowired
@@ -33,7 +35,7 @@ public class AddOrderController {
     }
 
     @GetMapping("/addorder")
-    public String doSetOrder(Model model) {
+    public String getOrderInfo(Model model) {
         model.addAttribute("basketItems", addOrderService.getBasketItems());
         double cost = addOrderService.getTotalCost();
         model.addAttribute("totalcost", cost);
@@ -42,9 +44,18 @@ public class AddOrderController {
 
 
     @PostMapping("/orderpage")
-    public String order(Model model, @RequestParam String username, @RequestParam String password) {
-        model.addAttribute("order", addOrderService.orderItems(username,password));
-        return "thankspage";
+    public String setOrder(Model model, @RequestParam String username, @RequestParam String password) {
+        String order = addOrderService.orderItems(username, password);
+        if (order.equals("Items were ordered")) {
+            model.addAttribute("order", addOrderService.orderItems(username,password));
+            return "thankspage";
+        } else{
+            model.addAttribute("basketItems", addOrderService.getBasketItems());
+            double cost = addOrderService.getTotalCost();
+            model.addAttribute("totalcost", cost);
+            return "orderpage";
+        }
+
     }
 }
 

@@ -41,7 +41,7 @@ public class AddOrderService {
     public List<Orderline> basketOrderLines = new ArrayList<>();
 
     public double getTotalCost() {
-        double totalCost =0;
+        double totalCost = 0;
         for (int i = 0; i < basketDetails.size(); i++) {
             totalCost += basketDetails.get(i).getTotalcost();
         }
@@ -81,45 +81,42 @@ public class AddOrderService {
             }
     }
 
-    //Order the items and store in db
-    @Transactional
-    public Object orderItems(String username, String password) {
-        List<Customer> findCustomer = customerRepository.findCustomerByUsernameAndPassword(username, password);
-        if (findCustomer != null && !basketDetails.isEmpty()) {
-            for (Customer c : findCustomer) {
+    // Order the items and store in db
+    // using transactional to see if a person fills the right input to make it go through otherwise return
+    public String orderItems(String username, String password) {
+        List <Customer> customer = customerRepository.findCustomerByUsername(username);
+        for (Customer c: customer) {
+            if (customer != null && c.getPassword().equals(password)) {
+
                 for (Orderdetails orderdetails : basketDetails) {
                     orderdetails.setCustomerid(c.getIdcustomer());
                     List<Electronic> electronic = electronicRepository.findByIdelectronic(orderdetails.getProductid());
-                    for (Electronic e: electronic) {
-                        if (!basketDetails.isEmpty()) {
-                            int availablequantity = e.getAvailable();
-                            int orderAmount = orderdetails.getQuantity();
-                            if (orderAmount <= availablequantity) {
-                                orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
-                                e.setAvailable(availablequantity - orderAmount);
-                                orderRepository.save(orderdetails);
 
-                                for (Orderline orderline : basketOrderLines) {
-                                    if (orderline.getProductid() == orderdetails.getProductid()) {
-                                        orderline.setOrderdetailid(orderdetails.getIdorderdetails());
-                                        orderLineRepository.save(orderline);
-                                    }
+                    for (Electronic e : electronic) {
+                        int availableQuantity = e.getAvailable();
+                        int orderAmount = orderdetails.getQuantity();
+                        if (orderAmount <= availableQuantity) {
+                            orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
+                            e.setAvailable(availableQuantity - orderAmount);
+                            orderRepository.save(orderdetails);
+
+                            for (Orderline orderline : basketOrderLines) {
+                                if (orderline.getProductid() == orderdetails.getProductid()) {
+                                    orderline.setOrderdetailid(orderdetails.getIdorderdetails());
+                                    orderLineRepository.save(orderline);
                                 }
-                            } else {
-                                return "something went wrong with basket";
                             }
-                        }
-
+                        } else return "Not enough quantity available for product: " + e.getName();
                     }
-
                 }
+                basketOrderLines.clear();
+                basketDetails.clear();
+                return "Items were ordered";
+            } else {
+                return "Incorrect username or password";
             }
-            basketOrderLines.clear();
-            basketDetails.clear();
-            return "Items were ordered";
-        } else {
-            return "Basket is empty or customer not found.";
         }
+        return "something went really bad";
     }
 
     public List<Orderdetails> getBasketItems() {
