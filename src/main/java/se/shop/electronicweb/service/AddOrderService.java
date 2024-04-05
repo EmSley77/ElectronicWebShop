@@ -87,11 +87,9 @@ public class AddOrderService {
         List <Customer> customer = customerRepository.findCustomerByUsername(username);
         for (Customer c: customer) {
             if (customer != null && c.getPassword().equals(password)) {
-
                 for (Orderdetails orderdetails : basketDetails) {
                     orderdetails.setCustomerid(c.getIdcustomer());
                     List<Electronic> electronic = electronicRepository.findByIdelectronic(orderdetails.getProductid());
-
                     for (Electronic e : electronic) {
                         int availableQuantity = e.getAvailable();
                         int orderAmount = orderdetails.getQuantity();
@@ -99,7 +97,6 @@ public class AddOrderService {
                             orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
                             e.setAvailable(availableQuantity - orderAmount);
                             orderRepository.save(orderdetails);
-
                             for (Orderline orderline : basketOrderLines) {
                                 if (orderline.getProductid() == orderdetails.getProductid()) {
                                     orderline.setOrderdetailid(orderdetails.getIdorderdetails());
@@ -112,10 +109,8 @@ public class AddOrderService {
                 basketOrderLines.clear();
                 basketDetails.clear();
                 return "Items were ordered";
-
             } else return "Incorrect username or password";
-        }
-        return "something went really bad";
+        } return "something went really bad";
     }
 
     public List<Orderdetails> getBasketItems() {
