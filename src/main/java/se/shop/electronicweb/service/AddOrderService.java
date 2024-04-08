@@ -86,7 +86,9 @@ public class AddOrderService {
     public String orderItems(String username, String password) {
         List <Customer> customer = customerRepository.findCustomerByUsername(username);
         for (Customer c: customer) {
-            if (customer != null && c.getPassword().equals(password)) {
+            if (customer == null && !c.getPassword().equals(password)) {
+                return "customer not found";
+            }
                 for (Orderdetails orderdetails : basketDetails) {
                     orderdetails.setCustomerid(c.getIdcustomer());
                     List<Electronic> electronic = electronicRepository.findByIdelectronic(orderdetails.getProductid());
@@ -109,8 +111,8 @@ public class AddOrderService {
                 basketOrderLines.clear();
                 basketDetails.clear();
                 return "Items were ordered";
-            } else return "Incorrect username or password";
-        } return "something went really bad";
+
+        } return "something went bad with the order";
     }
 
     public List<Orderdetails> getBasketItems() {
