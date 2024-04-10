@@ -187,7 +187,6 @@ public class AddOrderService {
         int price = getPrice(productId);
         for (int i = 0; i < basketOrderLines.size(); i++) {
             Orderline item = basketOrderLines.get(i);
-
             if (productId == item.getProductid()) {
                 int productAmountInBasket = item.getQuantityamount() + 1;
                 int newPrice = price * productAmountInBasket;
