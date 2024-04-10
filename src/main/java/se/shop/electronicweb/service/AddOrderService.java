@@ -50,24 +50,25 @@ public class AddOrderService {
 
     public void addToBasket(int id) {
         List<Electronic> products = electronicRepository.findByIdelectronic(id);
+        boolean found = false;
         for (Electronic product : products) {
-            if (product != null && product.getAvailable() >= 1) {
-
-
-
+            for (Orderline orderline: basketOrderLines) {
+                if (orderline.getProductid() == id) {
+                    orderline.setQuantityamount(orderline.getQuantityamount() + 1);
+                    orderline.setCost(product.getPrice() * orderline.getQuantityamount());
+                    found = true;
+                    break;
+                }
+            }
+            if (product != null && product.getAvailable() >= 1 && !found) {
                 Orderline orderline = new Orderline();
                 orderline.setProductid(id);
-                orderline.setQuantityamount(orderline.getQuantityamount());
+                orderline.setQuantityamount(1);
                 orderline.setCost(product.getPrice());
                 orderline.setStatus("Packing");
 
-                if (product != null ) {
-                    orderline.setQuantityamount(orderline.getQuantityamount() +1);
-                    orderline.setCost(orderline.getCost() * orderline.getQuantityamount());
-                }
-
                 basketOrderLines.add(orderline);
-            } else System.out.println("product not available!");
+            }
         }
     }
 
