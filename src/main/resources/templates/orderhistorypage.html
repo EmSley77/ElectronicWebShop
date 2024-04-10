@@ -53,8 +53,6 @@
     <tr th:each="order : ${orders}">
         <td th:text="${order.getIdorderdetails()}">Order id</td>
         <td th:text="${order.getCustomerid()}">Customer id</td>
-        <td th:text="${order.getProductid()}">Product id</td>
-        <td th:text="${order.getQuantity()}">quantity</td>
         <td th:text="${order.getTotalcost()}">Total cost</td>
         <td th:text="${order.getTime()}">Time</td>
     </tr>

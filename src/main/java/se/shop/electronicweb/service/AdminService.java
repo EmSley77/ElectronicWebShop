@@ -75,7 +75,7 @@ public class AdminService {
         return orders;
     }
 
-    public String addItem(String company, String categori, String name, double price, String color, String size, int available) {
+    public String addItem(String company, String categori, String name, int price, String color, String size, int available) {
         Electronic electronic = new Electronic();
 
         electronic.setCompany(company);

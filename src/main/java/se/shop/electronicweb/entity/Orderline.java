@@ -19,6 +19,9 @@ public class Orderline {
     @Column(name = "quantityamount", nullable = false)
     private int quantityamount;
     @Basic
+    @Column(name = "cost", nullable = false)
+    private int cost;
+    @Basic
     @Column(name = "status", nullable = true, length = 45)
     private String status;
 
@@ -35,15 +38,13 @@ public class Orderline {
 
     }
 
-    @Override
-    public String toString() {
-        return "Orderline{" +
-                "orderlineid=" + orderlineid +
-                ", orderdetailid=" + orderdetailid +
-                ", productid=" + productid +
-                ", quantityamount=" + quantityamount +
-                ", status='" + status + '\'' +
-                '}';
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getOrderlineid() {
@@ -86,28 +87,4 @@ public class Orderline {
         this.status = status;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Orderline orderline = (Orderline) o;
-
-        if (orderlineid != orderline.orderlineid) return false;
-        if (orderdetailid != orderline.orderdetailid) return false;
-        if (productid != orderline.productid) return false;
-        if (quantityamount != orderline.quantityamount) return false;
-        if (status != null ? !status.equals(orderline.status) : orderline.status != null) return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = orderlineid;
-        result = 31 * result + orderdetailid;
-        result = 31 * result + productid;
-        result = 31 * result + quantityamount;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        return result;
-    }
 }

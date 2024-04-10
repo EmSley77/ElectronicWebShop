@@ -27,7 +27,7 @@ public class AddOrderService {
 
     @Autowired
     OrderLineRepository orderLineRepository;
-    
+
     @Autowired
     ElectronicRepository electronicRepository;
 
@@ -37,13 +37,13 @@ public class AddOrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public List<Orderdetails> basketDetails = new ArrayList<>();
+
     public List<Orderline> basketOrderLines = new ArrayList<>();
 
-    public double getTotalCost() {
-        double totalCost = 0;
-        for (int i = 0; i < basketDetails.size(); i++) {
-            totalCost += basketDetails.get(i).getTotalcost();
+    public int getTotalCost() {
+        int totalCost = 0;
+        for (int i = 0; i < basketOrderLines.size(); i++) {
+            totalCost += basketOrderLines.get(i).getCost();
         }
         return totalCost;
     }
@@ -51,19 +51,21 @@ public class AddOrderService {
     public void addToBasket(int id) {
         List<Electronic> products = electronicRepository.findByIdelectronic(id);
         for (Electronic product : products) {
-            if (product != null && product.getAvailable() >= 1 ) {
-                Orderdetails orderDetail = new Orderdetails();
-                orderDetail.setQuantity(1);
-                orderDetail.setProductid(id);
-                orderDetail.setTotalcost(product.getPrice() * orderDetail.getQuantity());
+            if (product != null && product.getAvailable() >= 1) {
+
+
 
                 Orderline orderline = new Orderline();
-                orderline.setOrderdetailid(orderDetail.getIdorderdetails());
                 orderline.setProductid(id);
-                orderline.setQuantityamount(orderDetail.getQuantity());
+                orderline.setQuantityamount(orderline.getQuantityamount());
+                orderline.setCost(product.getPrice());
                 orderline.setStatus("Packing");
 
-                basketDetails.add(orderDetail);
+                if (product != null ) {
+                    orderline.setQuantityamount(orderline.getQuantityamount() +1);
+                    orderline.setCost(orderline.getCost() * orderline.getQuantityamount());
+                }
+
                 basketOrderLines.add(orderline);
             } else System.out.println("product not available!");
         }
@@ -71,73 +73,80 @@ public class AddOrderService {
 
     public String setStatusSent(int id) {
         Optional<Orderline> item = orderLineRepository.findById(id);
-            if (item.isPresent()) {
-                Orderline order = item.get();
-                    order.setStatus("Sent");
-                    orderLineRepository.save(order);
-                    return "Sucessfully sent package";
-            } else{
-                return "something went wrong";
-            }
+        if (item.isPresent()) {
+            Orderline order = item.get();
+            order.setStatus("Sent");
+            orderLineRepository.save(order);
+            return "Sucessfully sent package";
+        } else {
+            return "something went wrong";
+        }
     }
 
     // Order the items and store in db
     // using transactional to see if a person fills the right input to make it go through otherwise return
+    @Transactional
     public String orderItems(String username, String password) {
-        List <Customer> customer = customerRepository.findCustomerByUsername(username);
-        for (Customer c: customer) {
-            if (customer == null && !c.getPassword().equals(password)) {
-                return "customer not found";
-            }
-                for (Orderdetails orderdetails : basketDetails) {
-                    orderdetails.setCustomerid(c.getIdcustomer());
-                    List<Electronic> electronic = electronicRepository.findByIdelectronic(orderdetails.getProductid());
-                    for (Electronic e : electronic) {
-                        int availableQuantity = e.getAvailable();
-                        int orderAmount = orderdetails.getQuantity();
-                        if (orderAmount <= availableQuantity) {
-                            orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
-                            e.setAvailable(availableQuantity - orderAmount);
-                            orderRepository.save(orderdetails);
-                            for (Orderline orderline : basketOrderLines) {
-                                if (orderline.getProductid() == orderdetails.getProductid()) {
-                                    orderline.setOrderdetailid(orderdetails.getIdorderdetails());
-                                    orderLineRepository.save(orderline);
-                                }
-                            }
-                        } else return "Not enough quantity available for product: " + e.getName();
+        List<Customer> customer = customerRepository.findCustomerByUsername(username);
+        if (customer.isEmpty()) {
+            return "Customer not found";
+        }
+        if (basketOrderLines.isEmpty()) {
+            return "Basket is empty, cannot proceed";
+        }
+
+        for (Customer c : customer) {
+            Orderdetails orderdetails = new Orderdetails();
+            orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
+            orderdetails.setCustomerid(c.getIdcustomer());
+            orderdetails.setTotalcost(getTotalCost());
+            orderRepository.save(orderdetails);
+
+            for (Orderline orderline : basketOrderLines) {
+                List<Electronic> electronic = electronicRepository.findByIdelectronic(orderline.getProductid());
+                for (Electronic e : electronic) {
+                    int availableQuantity = e.getAvailable();
+                    int orderAmount = orderline.getQuantityamount();
+                    if (orderAmount <= availableQuantity) {
+                        e.setAvailable(availableQuantity - orderAmount);
+                    } else {
+                        return "Not enough quantity available for product: " + e.getName();
                     }
                 }
-                basketOrderLines.clear();
-                basketDetails.clear();
-                return "Items were ordered";
-
-        } return "something went bad with the order";
+                orderline.setOrderdetailid(orderdetails.getIdorderdetails());
+                orderline.setStatus("Packing");
+                orderLineRepository.save(orderline);
+            }
+            basketOrderLines.clear();
+            return "Items were ordered";
+        }
+        return "Something went wrong with the order";
     }
 
-    public List<Orderdetails> getBasketItems() {
-        return basketDetails;
+
+    public List<Orderline> getBasketItems() {
+        return basketOrderLines;
     }
 
     public int getAvailability(int id) {
-       List <Electronic> e = electronicRepository.findByIdelectronic(id);
-        for (Electronic electronic: e) {
+        List<Electronic> e = electronicRepository.findByIdelectronic(id);
+        for (Electronic electronic : e) {
             return electronic.getAvailable();
         }
         return -1;
     }
 
-    public List<Orderdetails> removeItemFromBasket(int input) {
-        for (int i = 0; i < basketDetails.size(); i++) {
-            if (input == basketDetails.get(i).getProductid()) {
-                basketDetails.remove(i);
+    public List<Orderline> removeItemFromBasket(int input) {
+        for (int i = 0; i < basketOrderLines.size(); i++) {
+            if (input == basketOrderLines.get(i).getProductid()) {
+                basketOrderLines.remove(i);
                 break;
             }
         }
-        return basketDetails;
+        return basketOrderLines;
     }
 
-    public double getPrice(int id) {
+    public int getPrice(int id) {
         List<Electronic> findElectronic = electronicRepository.findByIdelectronic(id);
         if (findElectronic != null && !findElectronic.isEmpty()) {
             for (int i = 0; true; i++) {
@@ -148,19 +157,19 @@ public class AddOrderService {
         return 0;
     }
 
-    public List<Orderdetails> removeAmountFromBasket(int productId, int amount) {
-        double price = getPrice(productId);
-        for (int i = 0; i < basketDetails.size(); i++) {
-            Orderdetails item = basketDetails.get(i);
+    public List<Orderline> removeAmountFromBasket(int productId, int amount) {
+        int price = getPrice(productId);
+        for (int i = 0; i < basketOrderLines.size(); i++) {
+            Orderline item = basketOrderLines.get(i);
             if (productId == item.getProductid()) {
-                int productAmountInBasket = item.getQuantity() - amount;
-                double newPrice = price * productAmountInBasket;
+                int productAmountInBasket = item.getQuantityamount() - amount;
+                int newPrice = price * productAmountInBasket;
                 if (productAmountInBasket <= 0) {
-                    basketDetails.remove(i);
+                    basketOrderLines.remove(i);
                     break;
                 } else {
-                    item.setQuantity(productAmountInBasket);
-                    item.setTotalcost(newPrice);
+                    item.setQuantityamount(productAmountInBasket);
+                    item.setCost(newPrice);
                     for (Orderline orderline : basketOrderLines) {
                         if (orderline.getProductid() == item.getProductid()) {
                             orderline.setQuantityamount(productAmountInBasket);
@@ -170,20 +179,20 @@ public class AddOrderService {
                 }
             }
         }
-        return basketDetails;
+        return basketOrderLines;
     }
 
-    public List<Orderdetails> addAmountFromBasket(int productId, int amount) {
-        double price = getPrice(productId);
-        for (int i = 0; i < basketDetails.size(); i++) {
-            Orderdetails item = basketDetails.get(i);
+    public List<Orderline> addAmountFromBasket(int productId, int amount) {
+        int price = getPrice(productId);
+        for (int i = 0; i < basketOrderLines.size(); i++) {
+            Orderline item = basketOrderLines.get(i);
 
             if (productId == item.getProductid()) {
-                int productAmountInBasket = item.getQuantity() + amount;
-                double newPrice = price * productAmountInBasket;
+                int productAmountInBasket = item.getQuantityamount() + amount;
+                int newPrice = price * productAmountInBasket;
                 if (productAmountInBasket < getAvailability(productId)) {
-                    item.setQuantity(productAmountInBasket);
-                    item.setTotalcost(newPrice);
+                    item.setQuantityamount(productAmountInBasket);
+                    item.setCost(newPrice);
                     for (Electronic e : electronicRepository.findAll()) {
                         for (Orderline orderline : basketOrderLines) {
                             if (orderline.getProductid() == item.getProductid() && e.getAvailable() >= productAmountInBasket) {
@@ -192,15 +201,9 @@ public class AddOrderService {
                             }
                         }
                     }
-                } else {
-                    break;
-                }
+                } else break;
             }
         }
-        return basketDetails;
+        return basketOrderLines;
     }
-
-
-
-
 }

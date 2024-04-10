@@ -48,7 +48,7 @@ public class AdminController {
     public String additem(@RequestParam  String company,
                           @RequestParam  String categori,
                           @RequestParam  String name,
-                          @RequestParam  double price,
+                          @RequestParam  int price,
                           @RequestParam  String color,
                           @RequestParam  String size,
                           @RequestParam  int available,

@@ -20,7 +20,7 @@ public class Electronic {
     private String name;
     @Basic
     @Column(name = "price", nullable = false, precision = 0)
-    private double price;
+    private int price;
     @Basic
     @Column(name = "color", nullable = false, length = 45)
     private String color;
@@ -31,21 +31,9 @@ public class Electronic {
     @Column(name = "available", nullable = false, length = 45)
     private int available;
 
-    @Override
-    public String toString() {
-        return "Electronic{" +
-                "idelectronic=" + idelectronic +
-                ", company='" + company + '\'' +
-                ", categori='" + categori + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", color='" + color + '\'' +
-                ", size='" + size + '\'' +
-                ", available=" + available +
-                '}';
-    }
 
-    public Electronic(String company, String categori, String name, double price, String color, String size, int available) {
+
+    public Electronic(String company, String categori, String name, int price, String color, String size, int available) {
         this.company = company;
         this.categori = categori;
         this.name = name;
@@ -98,11 +86,11 @@ public class Electronic {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
