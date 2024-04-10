@@ -19,28 +19,27 @@ public class LoginService {
 
     public String login(String username, String password) {
         List<Customer> loginPerson = customerRepository.findCustomerByUsernameAndPassword(username, password);
-        for (int i = 0; i < loginPerson.size(); i++) {
-            if (loginPerson != null && username.equalsIgnoreCase(loginPerson.get(i).getUsername()) && password.equalsIgnoreCase(loginPerson.get(i).getPassword())) {
+        for (Customer person : loginPerson) {
+            if (person != null && username.equalsIgnoreCase(person.getUsername()) && password.equalsIgnoreCase(person.getPassword())) {
                 return "Login granted, welcome:";
-            }
-            else return "Wrong credentials";
+            } else return "Wrong credentials";
         }
         return "something went wrong";
     }
 
     public String createLogin(String name, String lastN, String email, String adress, String username, String password) {
-        Customer c = new Customer();
-        Optional<Customer> customer = customerRepository.findById(c.getIdcustomer());
+        Customer newCustomer = new Customer();
+        Optional<Customer> customer = customerRepository.findById(newCustomer.getIdcustomer());
 
-        c.setName(name);
-        c.setLastname(lastN);
-        c.setEmail(email);
-        c.setAddress(adress);
-        c.setUsername(username);
-        c.setPassword(password);
-        c.setRole(0);
+        newCustomer.setName(name);
+        newCustomer.setLastname(lastN);
+        newCustomer.setEmail(email);
+        newCustomer.setAddress(adress);
+        newCustomer.setUsername(username);
+        newCustomer.setPassword(password);
+        newCustomer.setRole(0);
         if (customer.isEmpty() && !customer.isPresent()) {
-            customerRepository.save(c);
+            customerRepository.save(newCustomer);
             return "Login credentials created, welcome";
         } else return "something went wrong";
     }

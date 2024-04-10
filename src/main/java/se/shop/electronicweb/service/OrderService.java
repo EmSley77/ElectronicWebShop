@@ -23,7 +23,6 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-
          public List<Orderdetails> getOrders (String name){
             List<Orderdetails> orderdetails = new ArrayList<>();
             List<Customer> customer = customerRepository.findCustomerByUsername(name);
