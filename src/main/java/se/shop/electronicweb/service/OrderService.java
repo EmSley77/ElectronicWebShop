@@ -3,6 +3,7 @@ package se.shop.electronicweb.service;
 //2024-03-06
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 import se.shop.electronicweb.entity.Customer;
 import se.shop.electronicweb.entity.Orderdetails;
 import se.shop.electronicweb.repositorys.CustomerRepository;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@SessionScope
 public class OrderService {
 
     @Autowired

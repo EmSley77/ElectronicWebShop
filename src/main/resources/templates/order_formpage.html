@@ -94,15 +94,13 @@
         <td>
             <form action="/addamount" method="post">
                 <input type="hidden" name="input" placeholder="Product ID" required="required" th:value="${order.getProductid()}">
-                <input type="number" name="amount" placeholder="Amount" required="required">
-                <button>Add amount</button>
+                <button>+</button>
             </form>
         </td>
         <td>
             <form action="/removeitemamount" method="post">
                 <input type="hidden" name="input" placeholder="Product ID" required="required" th:value="${order.getProductid()}">
-                <input type="number" name="amount" placeholder="Amount" required="required">
-                <button>Remove amount</button>
+                <button>-</button>
             </form>
         </td>
 

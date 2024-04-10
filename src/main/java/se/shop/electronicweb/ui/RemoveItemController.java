@@ -31,15 +31,15 @@ public class RemoveItemController {
     }
 
     @PostMapping("/removeitemamount")
-    public String removeItemAmountInBasket(@RequestParam(name = "input") int input,@RequestParam(name = "amount") int amount, Model model) {
-        model.addAttribute("removeitem", service.removeAmountFromBasket(input,amount));
+    public String removeItemAmountInBasket(@RequestParam(name = "input") int input, Model model) {
+        model.addAttribute("removeitem", service.removeAmountFromBasket(input));
         model.addAttribute("basketItems", service.getBasketItems());
         return "order_formpage";
     }
 
     @PostMapping("addamount")
-    public String addAmount(@RequestParam(name = "input") int input,@RequestParam(name = "amount") int amount, Model model) {
-        model.addAttribute("additem", service.addAmountFromBasket(input,amount));
+    public String addAmount(@RequestParam(name = "input") int input, Model model) {
+        model.addAttribute("additem", service.addAmountFromBasket(input));
         model.addAttribute("basketItems", service.getBasketItems());
         return "order_formpage";
     }

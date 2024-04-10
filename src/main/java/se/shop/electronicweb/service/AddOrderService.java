@@ -40,6 +40,8 @@ public class AddOrderService {
 
     public List<Orderline> basketOrderLines = new ArrayList<>();
 
+    private int Amount = 1;
+
     public int getTotalCost() {
         int totalCost = 0;
         for (int i = 0; i < basketOrderLines.size(); i++) {
@@ -84,8 +86,6 @@ public class AddOrderService {
         }
     }
 
-    // Order the items and store in db
-    // using transactional to see if a person fills the right input to make it go through otherwise return
     @Transactional
     public String orderItems(String username, String password) {
         List<Customer> customer = customerRepository.findCustomerByUsername(username);
@@ -158,12 +158,12 @@ public class AddOrderService {
         return 0;
     }
 
-    public List<Orderline> removeAmountFromBasket(int productId, int amount) {
+    public List<Orderline> removeAmountFromBasket(int productId) {
         int price = getPrice(productId);
         for (int i = 0; i < basketOrderLines.size(); i++) {
             Orderline item = basketOrderLines.get(i);
             if (productId == item.getProductid()) {
-                int productAmountInBasket = item.getQuantityamount() - amount;
+                int productAmountInBasket = item.getQuantityamount() - 1;
                 int newPrice = price * productAmountInBasket;
                 if (productAmountInBasket <= 0) {
                     basketOrderLines.remove(i);
@@ -183,13 +183,13 @@ public class AddOrderService {
         return basketOrderLines;
     }
 
-    public List<Orderline> addAmountFromBasket(int productId, int amount) {
+    public List<Orderline> addAmountFromBasket(int productId) {
         int price = getPrice(productId);
         for (int i = 0; i < basketOrderLines.size(); i++) {
             Orderline item = basketOrderLines.get(i);
 
             if (productId == item.getProductid()) {
-                int productAmountInBasket = item.getQuantityamount() + amount;
+                int productAmountInBasket = item.getQuantityamount() + 1;
                 int newPrice = price * productAmountInBasket;
                 if (productAmountInBasket < getAvailability(productId)) {
                     item.setQuantityamount(productAmountInBasket);
