@@ -26,8 +26,8 @@ public class OrderService {
          public List<Orderdetails> getOrders (String name){
             List<Orderdetails> orderdetails = new ArrayList<>();
             List<Customer> customer = customerRepository.findCustomerByUsername(name);
-            for (Customer cust : customer) {
-                List<Orderdetails> orders = orderRepository.findOrderdetailsByCustomerid(cust.getIdcustomer());
+            for (Customer c : customer) {
+                List<Orderdetails> orders = orderRepository.findOrderdetailsByCustomerid(c.getIdcustomer());
                 orderdetails.addAll(orders);
             }
             return orderdetails;

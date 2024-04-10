@@ -21,10 +21,10 @@ public class ElectronicService {
 
     public List<Electronic> searchForProducts(String search) {
         List<Electronic> electronics = electronicRepository.findByNameContainingOrCategoriContainingOrColorContaining(search, search, search);
-
         if (electronics != null) {
             return electronics;
-        } else {
+        }
+        else {
             return Collections.emptyList();
         }
     }

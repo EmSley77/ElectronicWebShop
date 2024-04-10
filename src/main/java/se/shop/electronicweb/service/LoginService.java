@@ -22,7 +22,10 @@ public class LoginService {
         for (Customer person : loginPerson) {
             if (person != null && username.equalsIgnoreCase(person.getUsername()) && password.equalsIgnoreCase(person.getPassword())) {
                 return "Login granted, welcome:";
-            } else return "Wrong credentials";
+            }
+            else {
+                return "Wrong credentials";
+            }
         }
         return "something went wrong";
     }
@@ -41,7 +44,10 @@ public class LoginService {
         if (customer.isEmpty() && !customer.isPresent()) {
             customerRepository.save(newCustomer);
             return "Login credentials created, welcome";
-        } else return "something went wrong";
+        }
+        else {
+            return "something went wrong";
+        }
     }
 
     public int getRole(String username) {

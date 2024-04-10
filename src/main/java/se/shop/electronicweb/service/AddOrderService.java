@@ -37,10 +37,7 @@ public class AddOrderService {
     @Autowired
     OrderRepository orderRepository;
 
-
     public List<Orderline> basketOrderLines = new ArrayList<>();
-
-    private int Amount = 1;
 
     public int getTotalCost() {
         int totalCost = 0;
@@ -81,14 +78,16 @@ public class AddOrderService {
             order.setStatus("Sent");
             orderLineRepository.save(order);
             return "Sucessfully sent package";
-        } else {
-            return "something went wrong";
+        }
+        else {
+            return "Could not change status";
         }
     }
 
     @Transactional
     public String orderItems(String username, String password) {
         List<Customer> customer = customerRepository.findCustomerByUsername(username);
+
         if (customer.isEmpty()) {
             return "Customer not found";
         }
@@ -98,9 +97,11 @@ public class AddOrderService {
 
         for (Customer c : customer) {
             Orderdetails orderdetails = new Orderdetails();
+
             orderdetails.setTime(Timestamp.valueOf(LocalDateTime.now()));
             orderdetails.setCustomerid(c.getIdcustomer());
             orderdetails.setTotalcost(getTotalCost());
+
             orderRepository.save(orderdetails);
 
             for (Orderline orderline : basketOrderLines) {
@@ -108,11 +109,7 @@ public class AddOrderService {
                 for (Electronic e : electronic) {
                     int availableQuantity = e.getAvailable();
                     int orderAmount = orderline.getQuantityamount();
-                    if (orderAmount <= availableQuantity) {
-                        e.setAvailable(availableQuantity - orderAmount);
-                    } else {
-                        return "Not enough quantity available for product: " + e.getName();
-                    }
+                    e.setAvailable(availableQuantity - orderAmount);
                 }
                 orderline.setOrderdetailid(orderdetails.getIdorderdetails());
                 orderline.setStatus("Packing");

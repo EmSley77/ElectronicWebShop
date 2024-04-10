@@ -26,11 +26,12 @@ public class ElectronicController {
 
 
     @GetMapping("/electronics")
-    public String getProduct(@RequestParam(name = "search", required = false) String search, Model model) {
+    public String getProduct(@RequestParam String search, Model model) {
         List<Electronic> findElectronics;
         if (search != null && !search.isEmpty()) {
             findElectronics = electronicService.searchForProducts(search);
-        } else {
+        }
+        else {
             findElectronics = electronicService.getAll();
         }
         model.addAttribute("electronics", findElectronics);
@@ -41,7 +42,6 @@ public class ElectronicController {
     @GetMapping("/search")
     public String getSearch(Model model) {
         List<Electronic> electronics = electronicService.getAll();
-        model.addAttribute("returnsearch", " ");
 
         model.addAttribute("electronics", electronics);
 

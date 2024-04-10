@@ -31,10 +31,8 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public String orders(@RequestParam(name = "username", required = false) String username, Model model) {
-        List<Orderdetails> orderdetailsList;
-        orderdetailsList = orderService.getOrders(username);
-        model.addAttribute("orders", orderdetailsList);
+    public String orders(@RequestParam String username, Model model) {
+        model.addAttribute("orders", orderService.getOrders(username));
         return "orderhistorypage";
     }
 

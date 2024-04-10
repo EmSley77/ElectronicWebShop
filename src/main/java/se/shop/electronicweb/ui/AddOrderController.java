@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.shop.electronicweb.repositorys.ElectronicRepository;
 import se.shop.electronicweb.service.AddOrderService;
-import se.shop.electronicweb.service.ElectronicService;
-
-import java.util.Objects;
 
 @Controller
 public class AddOrderController {
@@ -23,11 +20,11 @@ public class AddOrderController {
     AddOrderService addOrderService;
 
     @PostMapping("/basket")
-    public String addToBasket(@RequestParam int id, Model model) {
+    public String basket(@RequestParam int id, Model model) {
         if (addOrderService.getAvailability(id) >= 1) {
             addOrderService.addToBasket(id);
             model.addAttribute("basketItems", addOrderService.getBasketItems());
-            return "order_formpage";
+            return "basketpage";
         }
         else {
             model.addAttribute("electronics", electronicRepository.findAll());

@@ -54,7 +54,8 @@ public class LoginController {
         model.addAttribute("createlogincred",newLogin);
         if (newLogin.equals(Helper.NEW_LOGIN_CREATED.getMessage()))  {
             return "redirect:/loginpage.html";
-        } else {
+        }
+        else {
             return "redirect:/loginpage.html";
         }
     }

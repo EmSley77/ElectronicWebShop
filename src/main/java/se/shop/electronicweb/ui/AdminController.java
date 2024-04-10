@@ -85,20 +85,17 @@ public class AdminController {
     }
 
     @GetMapping("loginpage")
-    public String loginPage(Model model) {
-        model.addAttribute("loginpage", " ");
+    public String getLoginPage() {
         return "redirect:/loginpage.html";
     }
     @GetMapping("webpage")
-    public String webPage(Model model) {
-        model.addAttribute("loginpage", " ");
+    public String getWebPage() {
         return "redirect:/electronicspage.html";
     }
 
 
     @GetMapping("adminpage")
-    public String adminPanel(Model model) {
-        model.addAttribute("loginpage", " ");
+    public String getAdminPanel() {
         return "redirect:/adminpage.html";
     }
 
