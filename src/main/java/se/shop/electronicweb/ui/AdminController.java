@@ -32,7 +32,7 @@ public class AdminController {
         String newLogin =  adminService.createAdmin(name,lastN,email,adress,username,password);
         model.addAttribute("createlogin",newLogin);
         if (newLogin.equals(Helper.ADMIN_REG.getMessage()))  {
-            return "redirect:/adminpage.html";
+            return "redirect:/pageadmin.html";
         } else {
             return "redirect:/loginpage.html";
         }
@@ -55,7 +55,7 @@ public class AdminController {
                           Model model)
     {
         model.addAttribute("add", adminService.addItem(company, categori, name, price, color, size, available));
-        return "redirect:/adminpage.html";
+        return "redirect:/pageadmin.html";
     }
 
     @PostMapping("removefrominventory")
@@ -96,7 +96,7 @@ public class AdminController {
 
     @GetMapping("adminpage")
     public String getAdminPanel() {
-        return "redirect:/adminpage.html";
+        return "redirect:/pageadmin.html";
     }
 
 }
